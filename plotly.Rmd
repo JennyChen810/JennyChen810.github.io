@@ -16,7 +16,6 @@ library(plotly)
 Loading the dataset
 
 ```{r}
-library(tidyverse)
 library(httr)
 library(jsonlite)
 
@@ -57,6 +56,7 @@ nyc_inspections =
   bind_rows() 
 ```
 Data cleaning
+
 ```{r}
 nyc_inspections_cleaned = nyc_inspections %>%
   mutate(score = as.numeric(score), 
@@ -65,30 +65,49 @@ nyc_inspections_cleaned = nyc_inspections %>%
          record_date = as.Date(record_date)) %>%
   filter(!is.na(score) & !is.na(boro) & !is.na(inspection_date)) %>%
   distinct()
+nyc_inspections_cleaned
 ```
 
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A--- scatterplot
+### Chart A--- Scatterplot
 
 ```{r}
+nyc_inspections_cleaned %>%
+  mutate(text_label = str_c("Borough:", boro, "\nScore:", score))%>%
+  plot_ly(x = ~inspection_date, y = ~score, type = 'scatter', mode = 'markers',
+          color = ~score, text = ~text_label, alpha = 0.5) %>%
+  layout(title = "Scatterplot of Scores Over Inspection Dates",
+         xaxis = list(title = "Inspection Date"),
+         yaxis = list(title = "Score"))
 
 ```
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### Chart B---Box plot
 
 ```{r}
-
+nyc_inspections_cleaned %>%
+  mutate(boro = fct_reorder(boro, score)) %>%
+  plot_ly(y = ~score, color = ~boro, type = "box", colors = "viridis")%>%
+  layout(title = "Boxplot of Scores by Borough",
+         xaxis = list(title = "Borough"),
+         yaxis = list(title = "Score"))
 ```
 
-### Chart C
+### Chart C--- Bar plot
 
 ```{r}
-
+nyc_inspections_cleaned %>% 
+  count(boro) %>%
+  mutate(boro = fct_reorder(boro, n)) %>%
+  plot_ly(x = ~boro, y = ~n, color = ~boro, type = "bar", colors = "viridis")%>%
+  layout(title = "Count of Inspections by Borough",
+         xaxis = list(title = "Borough"),
+         yaxis = list(title = "Inspection Count"))
 ```
 

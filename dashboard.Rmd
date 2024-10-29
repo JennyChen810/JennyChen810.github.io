@@ -1,5 +1,5 @@
 ---
-title: "plotly"
+title: "dashboard"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -61,13 +61,15 @@ Data cleaning
 nyc_inspections_cleaned = nyc_inspections %>%
   mutate(score = as.numeric(score), 
          inspection_date = as.Date(inspection_date),
-         grade_date = as.Date(grade_date),
-         record_date = as.Date(record_date)) %>%
+         boro = as.factor(boro)) %>%
+  select(boro,inspection_date,score) %>%
   filter(!is.na(score) & !is.na(boro) & !is.na(inspection_date)) %>%
-  distinct()
+  distinct()%>%
+  sample_n(1000)
 nyc_inspections_cleaned
 ```
 
+This cleaned dataset contains `r nrow(nyc_inspections_cleaned)` rows and `r ncol(nyc_inspections_cleaned)` columns. I take a random 1000 samples with variables includes boro, inspection_date and score.
 
 Column {data-width=650}
 -----------------------------------------------------------------------
@@ -78,12 +80,13 @@ Column {data-width=650}
 nyc_inspections_cleaned %>%
   mutate(text_label = str_c("Borough:", boro, "\nScore:", score))%>%
   plot_ly(x = ~inspection_date, y = ~score, type = 'scatter', mode = 'markers',
-          color = ~score, text = ~text_label, alpha = 0.5) %>%
+           text = ~text_label, alpha = 0.5) %>%
   layout(title = "Scatterplot of Scores Over Inspection Dates",
          xaxis = list(title = "Inspection Date"),
          yaxis = list(title = "Score"))
 
 ```
+From this scatter plot, I find the positive relationship between inspection date and score. The distribution shows more intense inspection activities in the recent years of dataset. 
 
 Column {data-width=350}
 -----------------------------------------------------------------------
@@ -98,6 +101,7 @@ nyc_inspections_cleaned %>%
          xaxis = list(title = "Borough"),
          yaxis = list(title = "Score"))
 ```
+From this box plot, we can clearly observe the distribution of scores by borough. Staten Island generally has lower and more consistent scores, suggesting better compliance, while Manhattan have both higher median scores and more outliers, indicating more frequent or severe health violations.
 
 ### Chart C--- Bar plot
 
@@ -110,4 +114,7 @@ nyc_inspections_cleaned %>%
          xaxis = list(title = "Borough"),
          yaxis = list(title = "Inspection Count"))
 ```
+From this bar plot, we found that Manhattan has the highest count of inspections followed by Brooklyn, which indicates a higher density of restaurants or more frequent inspections in these boroughs. Staten Island has the lowest inspection count, which reflects fewer restaurants in the area or a lower frequency of inspections. This distribution reflects differing inspection needs or resource allocations across boroughs.
+
+
 

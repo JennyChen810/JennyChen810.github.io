@@ -5,3 +5,17 @@ output:
        toc: true
        toc_float: true
 ---
+Welcome to my website.
+
+## About me 
+
+[About me](about.html)
+
+The About page includes my resume and academic experience. Also, you can find links in the site navigation for my GitHub account, my email and linkin.
+
+## Dashboard
+
+[Dashboard](dashboard.html)
+
+The Dashboard page includes three plots I created by NYC Restaurant Inspections dataset. 
+

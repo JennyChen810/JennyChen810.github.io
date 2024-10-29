@@ -5,12 +5,14 @@ navbar:
   right:
     - text: "About"
       href: about.html
-    - text: "Plotly"
-      href: plotly.html
+    - text: "Dashboard"
+      href: dashboard.html
     - icon: fa-envelope fa-lg
       href: mailto:<jc6422@cumc.columbia.edu>
     - icon: fa-github fa-lg
       href: http://github.com/JennyChen810/
+    - icon: fa-linkin fa-lg
+      href: https://www.linkedin.com/in/jianing-chen-8b1745301/
 output:
   html_document:
     theme: flatly

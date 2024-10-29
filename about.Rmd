@@ -1,0 +1,65 @@
+---
+title: "About me"
+output: 
+    html_document :
+      toc: true
+      toc_float: true
+---
+
+## Education
+
+**Columbia university, Mailman School of Public Health**, *Master of Science in Biostatistics*
+
+Expected Graduation : 5/2026
+
+**Rutgers University, Piscataway, NJ**, *Bachelor of Science in Statistics - Mathematics*
+
+Graduation Date: 5/2024
+
+## Professional Experience
+
+**EMR Technical Solutions LLC**, *Remote	Jul 2023-Sep 2023*
+
+*Data Analytics and Computer Science Intern	*
+
+•	Learned concepts of CMS, PostgreSQL, Elixir and the history of Unix and AT&T
+
+•	Generated pie charts for the Medicaid enrollment and expenditure of each state in the US for the next 10 years, using R and Python.
+
+•	Collaborated through GitHub for project efficient version control, code management, and collaboration on biostatistical projects
+
+## Research Experience
+
+**Clinical Trial for Sarecycline Does Efficacy**, *Remote   	Sep 2023-Nov 2023*
+
+*Mentored by a Principal Satistician at IQVIA*
+
+•	Performed ANCOVA for baseline characteristics and CMH tests the IGA success endpoint to test the drug’s efficacy in SAS and Excel
+
+•	Implemented nonlinear mixed-effects modeling for the pharmacokinetics analysis of plasma concentration data
+
+•	Generated statistical methods and results for the research manuscripts
+
+**Solid Tumors Oncology Clinical Trials**, *Remote	May 2022-Jul 2023*
+
+*Mentored by a Director of Biostatistics at Kedrion Biopharma Inc*
+
+•	Acquired in-depth clinical knowledge of solid tumor pathophysiology, assessment criteria (RECIST), and the intricacies of oncology clinical trial design; Constructed the Statistical Analysis Plan using R
+
+•	Calculated best overall response, time to disease progression, progression-free survival 
+
+•	Conducted Chi-square test, survival analysis and Cox model to generate demographics table, Kaplan-Meier Plot and proportional hazard ratios
+
+**Interdisciplinary Contest in Modeling-Light Pollution**, *Remote	Feb 2023*
+
+•	Developed innovative mathematical models by MATLAB aimed at quantifying the effects and identifying key drivers of light pollution
+
+•	Crafted a compelling written report that articulated our findings, methodology, and recommendations
+
+## Skills
+
+**Software:** R, Python, SAS, excel, MATLAB.
+
+**Language:** Mandarin, English
+
+

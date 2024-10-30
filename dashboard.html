@@ -1,22 +1,30 @@
 <!DOCTYPE html>
-
-<html>
-
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-<meta charset="utf-8" />
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-
 
 
 
 <title>dashboard</title>
 
+<meta property="og:title" content="dashboard" />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,9 +37,10 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
+<link href="site_libs/value-box-accent-static-0.6.2/theme-cosmo-value-box.css" rel="stylesheet" />
+<link href="site_libs/flexdashboard-css-0.6.2/flexdashboard.min.css" rel="stylesheet" />
+<link href="site_libs/flexdashboard-css-0.6.2/theme-cosmo.css" rel="stylesheet" />
 <link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
@@ -40,193 +49,104 @@
 <script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
-
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+/*
+  CSS for flexdashboard.js' use of Sly(). The sizing/position of this CSS needs to be
+  applied _before_ flexdashboard.js initializes, which is why this CSS has been pulled
+  out from flexdashboard.scss and inlined in the document's head.
+*/
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
-
-
-
-
-
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
   outline: none;
-}
-summary {
-  display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
   padding: 0;
 }
-</style>
 
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
 
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
 }
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
 }
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
 }
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
+
+.storyboard-nav .sbnext {
   float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  text-align: right;
+  margin-right: 8px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
 }
 
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
-  border: none;
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  text-align: left;
+  cursor: pointer;
 }
 
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
 }
 
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
+.sbframe-commentary {
+  width: 300px;
 }
 
-.tabset-dropdown > .nav-tabs > li {
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
   display: none;
 }
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
+}
+
+#dashboard-container {
+  height: 100%;
+}
+}
 </style>
-
-<!-- code folding -->
-
 
 
 
@@ -234,246 +154,1795 @@ $(document).ready(function () {
 
 <body>
 
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
 
-<div class="container-fluid main-container">
+<span class="navbar-logo pull-left">
+  
+</span>
+<span class="navbar-brand">
+  dashboard
+  <span class="navbar-author">
+        </span>
+</span>
 
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">Home</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="about.html">About</a>
-</li>
-<li>
-  <a href="dashboard.html">Dashboard</a>
-</li>
-<li>
-  <a href="mailto:&lt;jc6422@cumc.columbia.edu&gt;">
-    <span class="fa fa-envelope fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="http://github.com/JennyChen810/">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="https://www.linkedin.com/in/jianing-chen-8b1745301/">
-    <span class="fa fa-linkin fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div id="header">
-
-
-
-<h1 class="title toc-ignore">dashboard</h1>
+<button id="navbar-button" type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
 
 </div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<script type="text/javascript">
 
 
-<p>Loading the dataset</p>
-<pre class="r"><code>library(httr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;httr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:plotly&#39;:
-## 
-##     config</code></pre>
-<pre class="r"><code>library(jsonlite)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;jsonlite&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     flatten</code></pre>
-<pre class="r"><code>get_all_inspections = function(url) {
-  
-  all_inspections = vector(&quot;list&quot;, length = 0)
-  
-  loop_index = 1
-  chunk_size = 50000
-  DO_NEXT = TRUE
-  
-  while (DO_NEXT) {
-    message(&quot;Getting data, page &quot;, loop_index)
-    
-    all_inspections[[loop_index]] = 
-      GET(url,
-          query = list(`$order` = &quot;zipcode&quot;,
-                       `$limit` = chunk_size,
-                       `$offset` = as.integer((loop_index - 1) * chunk_size)
-                       )
-          ) %&gt;%
-      content(&quot;text&quot;) %&gt;%
-      fromJSON() %&gt;%
-      as_tibble()
-    
-    DO_NEXT = dim(all_inspections[[loop_index]])[1] == chunk_size
-    loop_index = loop_index + 1
+var FlexDashboard = (function () {
+
+  // initialize options
+  var _options = {};
+
+  var FlexDashboard = function() {
+
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false,
+      resize_reload: true
+    });
+  };
+
+  function init(options) {
+
+    // extend default options
+    $.extend(true, _options, options);
+
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.append(h1.contents());
+        h3.insertBefore(h1);
+        h1.detach();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if resize_reload is set to true and it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    if (_options.resize_reload) {
+      $(window).on('resize', function() {
+        if (_options.isMobile !== isMobilePhone() ||
+            _options.isPortrait !== isPortrait()) {
+          window.location.reload();
+        }
+      });
+    } else {
+      // if in desktop mode and resizing to mobile, make sure the heights are 100%
+      // This enforces what `fillpage.css` does for "wider" pages.
+      // Since we are not reloading once the page becomes small, we need to force the height to 100%
+      // This is a new situation introduced when `_options.resize_reload` is `false`
+      if (! _options.isMobile) {
+        // only add if `fillpage.css` was added in the first place
+        if (_options.fillPage) {
+          // fillpage.css
+          $("html,body,#dashboard").css("height", "100%");
+        }
+      }
+    }
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
   }
-  
-  all_inspections
-  
-}
 
-url = &quot;https://data.cityofnewyork.us/resource/43nn-pn8j.json&quot;
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
 
-nyc_inspections = 
-  get_all_inspections(url) %&gt;%
-  bind_rows() </code></pre>
-<pre><code>## Getting data, page 1</code></pre>
-<pre><code>## Getting data, page 2</code></pre>
-<pre><code>## Getting data, page 3</code></pre>
-<pre><code>## Getting data, page 4</code></pre>
-<pre><code>## Getting data, page 5</code></pre>
-<pre><code>## Getting data, page 6</code></pre>
-<p>Data cleaning</p>
-<pre class="r"><code>nyc_inspections_cleaned = nyc_inspections %&gt;%
-  mutate(score = as.numeric(score), 
-         inspection_date = as.Date(inspection_date),
-         boro = as.factor(boro)) %&gt;%
-  select(boro,inspection_date,score) %&gt;%
-  filter(!is.na(score) &amp; !is.na(boro) &amp; !is.na(inspection_date)) %&gt;%
-  distinct()%&gt;%
-  sample_n(1000)
-nyc_inspections_cleaned</code></pre>
-<pre><code>## # A tibble: 1,000 × 3
-##    boro      inspection_date score
-##    &lt;fct&gt;     &lt;date&gt;          &lt;dbl&gt;
-##  1 Bronx     2018-03-05         13
-##  2 Manhattan 2024-02-16         10
-##  3 Manhattan 2023-04-12          9
-##  4 Manhattan 2021-12-14          9
-##  5 Brooklyn  2022-02-22         14
-##  6 Manhattan 2024-03-14          3
-##  7 Queens    2022-11-17         13
-##  8 Manhattan 2022-02-22          9
-##  9 Manhattan 2023-10-31         38
-## 10 Brooklyn  2024-05-17         36
-## # ℹ 990 more rows</code></pre>
-<p>This cleaned dataset contains 1000 rows and 3 columns. I take a
-random 1000 samples with variables includes boro, inspection_date and
-score.</p>
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          var a = navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target);
+          a.removeClass("nav-link").addClass("dropdown-item");
+          li.append(a);
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li class="nav-item"></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li class="nav-item"></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('data-bs-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+    var navmenuIcon = page.attr('data-navmenu-icon');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+
+    // get a reference to the h1, discover its inner contens, then detach it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.contents();
+    h1.detach();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    a.attr('data-bs-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, navmenuIcon, navmenu, container);
+      li.find("> a").removeClass("nav-link").addClass("dropdown-item");
+      menu.append(li);
+    } else {
+      li.addClass("nav-item")
+      container.append(li);
+    }
+
+    // mark active tab and corresponding nav menu item
+    if (active)
+      $(a).tab("show");
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a class="nav-link"></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = null;
+      var iconSplit = icon.split(" ");
+      if (iconSplit.length > 1) {
+        iconSet = iconSplit[0];
+        icon = iconSplit.slice(1).join(" ");
+      } else {
+        iconSet = icon.substring(0, dashPos);
+      }
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.append(h2.contents());
+      h3.insertBefore(h2);
+      h2.detach();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.append(h3.contents());
+      h3.detach();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.append(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var pills = tabset.hasClass("tabset-pills");
+    var navClass = pills ? "nav-pills" : "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    var activeTab = 0;
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // see if this is marked as the active tab
+      if (tab.hasClass('active'))
+        activeTab = i;
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingDom = heading.contents();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab" data-bs-toggle="tab" class="nav-link"></a>');
+      a.append(headingDom);
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation" class="nav-item"></li>');
+      li.append(a);
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // set active tab
+    $(tabList.children()[activeTab]).tab("show");
+    var active = $(tabContent.children('div.section')[activeTab]);
+    active.addClass('active');
+    if (fade)
+      active.addClass('in');
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.contents();
+    h3.detach();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.empty().append(blockquote.children('p:first-child').contents());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.empty().append(caption.contents());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.decodeURIComponent(window.location.hash);
+    if (hash.length > 0) {
+      // Update the tab without .showPage() so that we don't change page history
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    }
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.decodeURIComponent(window.location.hash);
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        // returning to the base page URL without a hash activates first tab
+        $('ul.nav a:first').tab('show');
+      }
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// plot image (figure style)
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.append(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var iconSplit = chartIcon.split(" ");
+      if (iconSplit.length > 1) {
+        iconLib = iconSplit[0];
+        chartIcon = iconSplit.slice(1).join(" ");
+      } else {
+        var components = chartIcon.split("-");
+        if (components.length > 1)
+          iconLib = components[0];
+      }
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // If valueBox(color=) was an accent color, this attr should
+      // be populated with the accent color and the relevant CSS comes
+      // in through HTML dependencies
+      var dataColorAccent = valueOutput.attr('data-color-accent');
+      var valueBoxClasses = "value-box-" + (["primary", "info", "danger", "warning", "success"].join(" value-box-"));
+      if (dataColorAccent) {
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.addClass('value-box-' + dataColorAccent);
+      }
+
+      // If valueBox(color=) was a CSS color, these other data-color-*
+      // attrs will be populated
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.css('background-color', dataColor);
+      }
+      var dataColorText = valueOutput.attr('data-color-text');
+      if (dataColorText) {
+        valueBox.find(".inner").css('color', dataColorText);
+      }
+      var dataColorIcon = valueOutput.attr('data-color-icon');
+      if (dataColorIcon) {
+        valueBox.find(".icon").css('color', dataColorIcon);
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
+</script>
+
+<div id="dashboard-container">
+
+<p>Loading the dataset and Data cleaning</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
 <div id="column" class="section level2" data-width="650">
 <h2>Column</h2>
 <div id="chart-a-scatterplot" class="section level3">
 <h3>Chart A— Scatterplot</h3>
-<pre class="r"><code>nyc_inspections_cleaned %&gt;%
-  mutate(text_label = str_c(&quot;Borough:&quot;, boro, &quot;\nScore:&quot;, score))%&gt;%
-  plot_ly(x = ~inspection_date, y = ~score, type = &#39;scatter&#39;, mode = &#39;markers&#39;,
-           text = ~text_label, alpha = 0.5) %&gt;%
-  layout(title = &quot;Scatterplot of Scores Over Inspection Dates&quot;,
-         xaxis = list(title = &quot;Inspection Date&quot;),
-         yaxis = list(title = &quot;Score&quot;))</code></pre>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-e07b8becb01a05cb2be7" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-e07b8becb01a05cb2be7">{"x":{"visdat":{"1330ad7335c5":["function () ","plotlyVisDat"]},"cur_data":"1330ad7335c5","attrs":{"1330ad7335c5":{"x":{},"y":{},"mode":"markers","text":{},"alpha":0.5,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Scatterplot of Scores Over Inspection Dates","xaxis":{"domain":[0,1],"automargin":true,"title":"Inspection Date"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Score"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2018-03-05","2024-02-16","2023-04-12","2021-12-14","2022-02-22","2024-03-14","2022-11-17","2022-02-22","2023-10-31","2024-05-17","2022-03-01","2023-09-21","2023-04-13","2022-07-18","2023-04-12","2024-03-14","2023-10-12","2023-10-03","2024-04-02","2024-02-08","2023-03-09","2022-08-01","2021-08-31","2016-10-22","2023-12-11","2021-07-28","2024-03-21","2024-04-01","2024-09-30","2024-03-11","2021-07-20","2024-08-06","2023-11-24","2023-04-24","2023-04-17","2021-12-06","2022-01-27","2023-05-15","2022-07-05","2024-06-17","2022-06-27","2022-12-08","2024-05-14","2023-10-30","2023-02-07","2023-09-20","2024-05-21","2024-09-04","2022-02-24","2023-03-09","2022-09-16","2021-10-01","2023-05-31","2023-11-15","2024-08-01","2023-01-15","2023-04-25","2024-09-25","2023-12-11","2023-05-17","2018-01-25","2023-09-28","2024-02-06","2022-11-16","2024-06-18","2020-01-28","2022-06-16","2024-07-30","2022-01-14","2021-10-25","2022-10-19","2023-01-09","2023-11-01","2023-04-25","2024-06-04","2022-01-14","2023-05-30","2022-01-06","2022-12-17","2017-03-15","2024-08-26","2024-05-14","2023-08-28","2024-07-16","2023-05-15","2024-09-26","2023-12-18","2022-06-15","2024-09-26","2024-08-14","2023-06-05","2024-03-25","2020-02-03","2024-10-07","2021-08-23","2023-05-08","2022-10-11","2022-02-11","2023-03-22","2023-04-04","2024-08-14","2024-07-30","2024-09-18","2023-02-08","2023-11-06","2023-01-12","2024-04-05","2024-03-21","2024-02-06","2019-11-27","2022-06-03","2024-02-01","2023-05-10","2022-05-02","2024-06-21","2023-11-03","2022-02-04","2017-07-01","2021-12-08","2024-03-13","2021-08-05","2023-08-15","2022-11-16","2022-05-17","2022-03-17","2023-04-13","2023-09-20","2022-01-27","2023-01-12","2021-12-03","2022-04-26","2024-06-03","2024-03-04","2022-03-30","2024-08-01","2022-11-03","2024-08-09","2021-11-15","2022-11-03","2024-09-30","2022-10-13","2023-03-10","2019-05-04","2023-09-20","2023-04-18","2023-04-24","2022-02-23","2024-10-11","2024-05-08","2022-08-12","2024-01-25","2023-02-15","2024-05-21","2022-12-29","2024-07-18","2021-10-20","2024-05-28","2023-09-11","2023-03-10","2024-04-12","2024-06-27","2023-10-24","2023-02-08","2023-02-16","2023-03-16","2024-02-08","2024-08-02","2023-12-06","2023-06-13","2024-08-21","2022-10-07","2024-07-08","2024-10-21","2024-07-02","2024-04-10","2024-08-29","2023-02-22","2022-10-25","2023-03-23","2023-04-12","2021-12-22","2019-06-01","2023-11-15","2023-06-13","2023-05-24","2023-04-03","2018-08-10","2023-01-12","2024-09-09","2024-08-07","2023-01-19","2022-11-29","2024-07-17","2022-09-30","2022-09-21","2023-01-12","2021-08-12","2022-03-09","2024-07-16","2023-05-28","2024-06-05","2022-10-05","2024-05-14","2022-07-15","2024-06-13","2022-11-02","2024-08-15","2023-07-31","2024-09-24","2024-02-29","2023-11-01","2024-02-28","2022-03-25","2022-11-04","2022-09-07","2024-04-16","2023-02-23","2024-06-23","2022-03-11","2023-07-13","2024-06-03","2022-08-04","2022-02-28","2024-05-28","2023-01-21","2022-11-09","2023-09-13","2022-02-22","2019-11-15","2022-07-01","2022-07-11","2017-11-04","2024-03-19","2018-10-17","2023-12-05","2022-12-10","2022-01-18","2022-11-03","2022-10-26","2023-06-06","2024-04-08","2024-04-01","2022-07-05","2021-07-22","2022-05-19","2023-04-08","2022-02-14","2023-04-20","2023-04-06","2024-02-07","2024-06-18","2023-09-15","2024-01-11","2023-05-26","2023-05-17","2022-11-29","2022-10-11","2023-01-27","2023-03-01","2024-05-23","2022-05-25","2023-01-26","2022-05-06","2022-03-08","2024-02-07","2023-05-17","2023-11-15","2017-09-26","2024-04-17","2022-04-15","2022-11-16","2021-11-15","2021-08-19","2023-07-28","2022-04-11","2023-07-18","2024-09-12","2022-06-08","2017-04-19","2019-11-26","2023-03-25","2024-08-05","2021-08-25","2023-02-27","2023-02-16","2022-08-10","2022-02-01","2024-03-22","2024-09-26","2022-07-13","2024-02-23","2022-03-08","2024-03-27","2022-04-19","2023-06-29","2024-02-20","2024-03-25","2024-09-22","2022-01-10","2022-02-09","2024-08-08","2024-01-29","2022-06-13","2022-09-08","2024-06-14","2023-11-29","2024-06-18","2023-05-24","2023-04-28","2022-05-24","2024-05-22","2021-09-07","2022-03-04","2024-10-06","2023-10-23","2023-09-12","2023-04-05","2023-10-02","2024-04-18","2021-12-09","2023-07-14","2022-01-06","2022-08-08","2021-08-04","2022-10-21","2022-10-06","2023-05-15","2022-10-04","2024-10-18","2023-06-14","2023-05-18","2022-11-01","2023-05-01","2022-11-23","2023-09-28","2023-10-16","2023-08-16","2024-06-27","2023-07-18","2017-10-19","2022-06-22","2024-01-18","2021-12-01","2022-08-23","2022-12-20","2023-04-26","2022-10-27","2023-12-28","2022-11-21","2024-04-17","2023-10-16","2024-05-29","2021-12-14","2024-04-23","2024-10-22","2024-07-14","2022-11-09","2024-05-02","2022-05-09","2022-12-27","2024-10-06","2022-02-02","2021-07-29","2023-11-14","2024-03-04","2024-06-24","2022-12-13","2020-01-17","2023-02-08","2022-09-19","2024-08-01","2022-10-13","2022-07-05","2024-07-25","2024-10-21","2022-09-12","2022-05-13","2024-03-18","2023-04-29","2023-11-15","2023-11-15","2023-12-15","2024-07-23","2023-11-14","2021-11-15","2024-06-22","2024-01-18","2024-08-14","2024-06-03","2024-09-25","2022-03-31","2018-08-01","2023-02-27","2023-10-25","2021-11-04","2024-04-17","2022-08-18","2022-03-23","2022-12-07","2023-10-10","2024-04-29","2022-08-04","2023-05-31","2024-04-20","2024-08-15","2023-05-11","2023-03-23","2024-05-14","2022-06-17","2021-11-05","2024-07-08","2022-11-21","2022-06-07","2018-02-13","2023-01-23","2022-09-13","2023-08-23","2024-04-05","2021-07-22","2023-02-27","2024-02-14","2022-05-05","2024-06-24","2023-03-30","2024-10-10","2023-09-22","2023-10-17","2022-03-14","2024-04-15","2022-07-01","2024-05-02","2023-02-01","2024-05-28","2024-08-14","2024-04-22","2024-04-26","2024-08-16","2024-05-09","2021-11-17","2024-06-12","2023-12-05","2022-05-19","2023-05-25","2022-07-27","2021-08-24","2021-09-28","2017-08-15","2024-07-12","2024-07-03","2024-01-31","2023-01-17","2024-02-08","2024-08-07","2022-06-16","2023-06-06","2024-10-04","2024-10-26","2022-11-23","2024-10-05","2021-12-09","2024-01-09","2024-08-26","2022-04-05","2022-12-12","2022-11-19","2022-08-08","2024-01-31","2022-01-25","2023-04-07","2024-06-20","2024-10-17","2022-01-12","2024-05-13","2022-06-17","2022-10-06","2023-04-17","2024-04-10","2022-04-21","2024-03-25","2023-03-27","2022-07-21","2024-03-28","2022-08-17","2022-12-03","2023-11-20","2022-03-17","2023-05-10","2024-02-20","2024-06-12","2022-08-11","2022-03-28","2022-12-06","2022-08-30","2024-10-03","2023-05-02","2023-06-13","2023-03-21","2016-11-12","2024-08-23","2021-08-06","2022-12-01","2023-08-09","2024-07-11","2024-01-08","2023-06-20","2023-03-30","2023-01-18","2022-12-21","2023-05-26","2023-03-28","2022-07-25","2024-01-25","2022-03-02","2022-02-03","2022-03-22","2023-09-21","2021-12-08","2024-06-27","2022-07-07","2022-07-20","2023-03-10","2022-04-18","2023-02-08","2022-06-08","2023-03-31","2023-02-22","2024-01-12","2023-07-05","2021-09-16","2023-05-06","2021-08-30","2022-01-04","2023-06-13","2024-07-15","2022-04-20","2021-11-24","2024-05-08","2023-05-16","2022-02-09","2023-06-02","2024-06-10","2024-05-01","2024-08-06","2024-02-23","2024-04-24","2023-06-05","2024-09-04","2022-09-28","2023-08-23","2023-09-05","2022-10-27","2024-04-30","2024-03-19","2022-02-02","2021-12-15","2023-01-04","2023-03-30","2021-12-20","2021-08-27","2024-05-17","2021-07-29","2022-04-28","2024-04-22","2023-06-29","2023-08-21","2022-05-10","2024-01-16","2024-05-29","2023-04-06","2024-09-06","2022-01-19","2023-10-19","2024-08-30","2023-05-26","2022-10-04","2024-06-11","2023-03-03","2022-05-11","2024-07-03","2021-11-30","2022-03-17","2023-02-23","2022-11-07","2023-09-20","2022-08-04","2023-05-12","2023-06-05","2024-02-28","2023-02-22","2023-11-29","2023-04-17","2023-01-04","2022-12-06","2023-12-12","2023-04-12","2022-11-23","2022-08-16","2022-10-25","2022-08-22","2022-09-22","2023-06-29","2023-06-01","2024-05-22","2023-06-06","2024-06-24","2023-06-29","2024-07-22","2023-06-07","2022-09-09","2022-09-12","2024-03-21","2023-02-02","2022-07-15","2024-10-24","2024-07-08","2021-10-05","2022-10-28","2021-08-09","2023-02-10","2022-05-06","2022-09-01","2018-04-24","2024-03-18","2022-05-27","2023-05-24","2017-09-05","2022-07-18","2018-05-19","2022-11-14","2022-02-22","2024-07-29","2019-06-30","2021-10-26","2022-03-21","2022-06-17","2022-03-21","2022-08-23","2023-09-19","2024-09-30","2022-07-18","2023-08-10","2024-05-14","2024-05-10","2024-05-10","2023-07-05","2022-04-25","2024-10-08","2021-11-30","2024-08-05","2023-03-14","2023-08-09","2023-06-21","2024-04-05","2023-01-24","2022-11-02","2023-09-26","2024-09-13","2022-04-08","2023-10-25","2022-04-05","2021-09-09","2022-04-12","2022-03-15","2023-03-28","2022-10-20","2023-10-19","2024-03-19","2024-04-03","2024-07-15","2024-05-13","2021-11-04","2023-02-23","2022-11-22","2022-09-22","2024-03-28","2023-04-07","2024-07-08","2023-07-07","2023-01-31","2022-03-29","2024-06-24","2024-07-05","2023-02-04","2023-09-05","2022-01-13","2017-02-22","2024-09-12","2021-07-23","2022-03-15","2023-03-08","2024-07-10","2023-08-21","2024-07-02","2022-07-01","2023-04-11","2023-01-30","2024-03-18","2023-01-08","2023-12-13","2023-09-12","2023-03-22","2023-11-01","2024-04-24","2024-03-22","2022-07-12","2024-09-09","2023-06-30","2023-02-02","2023-05-30","2023-04-10","2023-01-12","2021-12-01","2022-08-16","2023-03-09","2023-06-28","2021-11-29","2023-11-14","2024-07-18","2023-06-12","2022-05-25","2022-04-07","2023-02-14","2022-04-27","2023-06-26","2024-10-26","2021-10-28","2023-04-21","2024-04-25","2024-08-15","2023-01-20","2022-05-04","2024-05-28","2023-05-04","2022-05-17","2021-12-02","2022-02-10","2022-07-01","2023-07-13","2024-04-18","2022-08-09","2023-04-04","2023-02-10","2023-05-11","2023-08-03","2022-07-26","2024-08-27","2024-06-21","2023-10-31","2024-10-25","2024-03-14","2023-06-23","2022-06-02","2023-08-31","2024-03-11","2023-08-09","2023-01-24","2023-03-15","2023-07-10","2023-04-22","2024-04-12","2022-11-18","2022-02-08","2021-09-14","2023-04-04","2023-12-18","2021-08-13","2022-03-22","2024-01-02","2022-04-27","2023-01-19","2024-07-23","2023-12-21","2022-08-25","2021-11-16","2023-01-24","2024-07-09","2021-12-10","2023-04-27","2022-08-16","2024-08-27","2023-03-27","2022-04-01","2024-09-18","2024-08-19","2020-02-10","2022-11-18","2023-08-03","2022-12-07","2023-03-16","2024-03-18","2022-08-18","2022-12-06","2024-10-22","2024-03-14","2022-11-30","2023-10-23","2024-04-22","2023-05-22","2022-05-31","2022-12-02","2024-10-21","2024-03-06","2024-09-09","2021-07-28","2024-05-16","2022-09-23","2023-03-23","2023-08-16","2023-05-01","2023-02-07","2023-05-16","2022-03-14","2023-01-11","2024-03-07","2024-08-12","2022-08-25","2022-05-19","2022-11-25","2023-04-14","2024-02-22","2023-12-08","2022-09-26","2023-10-16","2023-09-20","2022-01-05","2022-03-01","2024-04-10","2023-12-04","2022-07-11","2024-09-06","2024-05-09","2023-07-13","2024-03-15","2022-07-13","2024-08-27","2022-07-12","2023-10-23","2019-11-01","2024-09-13","2023-04-24","2022-08-16","2023-12-11","2022-09-12","2023-04-18","2024-08-20","2022-10-18","2022-05-02","2022-03-21","2024-09-17","2023-02-08","2022-08-04","2024-03-14","2022-09-30","2022-01-12","2023-11-08","2024-05-10","2023-05-23","2023-04-03","2022-08-26","2022-12-16","2024-03-11","2024-08-16","2021-07-19","2023-03-24","2023-01-10","2022-04-13","2023-07-10","2024-06-17","2022-01-07","2024-04-08","2021-08-23","2022-10-27","2023-03-27","2023-02-14","2023-09-08","2024-05-23","2017-01-25","2022-12-21","2022-05-24","2022-05-09","2024-01-17","2023-11-27","2022-10-13","2024-07-30","2023-07-27","2022-02-08","2022-03-02","2022-11-17","2022-06-09","2023-11-13","2019-06-11","2024-01-30","2022-08-04","2022-09-01","2024-02-08","2022-11-30","2023-09-28","2023-01-18","2024-04-02","2024-02-07","2022-05-25","2022-11-14","2023-02-09","2021-08-18","2023-06-16","2024-03-13","2022-07-05","2024-04-03","2024-05-28","2023-01-30","2023-06-29","2024-05-10","2024-09-15","2021-08-10","2023-07-25","2022-05-03","2021-11-17","2022-11-15","2024-01-08","2023-10-20","2023-02-02","2024-03-12","2023-11-03","2022-05-04","2022-07-09","2022-11-18","2023-04-13","2023-10-24","2022-08-22","2023-11-17","2023-01-06","2022-03-09","2021-09-27","2022-03-30","2022-03-31","2022-01-21","2024-01-29","2022-03-14","2022-10-11","2022-10-18","2024-05-21","2022-07-06","2023-01-31","2021-08-25","2022-01-19","2024-03-07","2022-10-14","2021-08-26","2023-03-29","2024-01-16","2024-03-28","2022-07-12","2024-06-21","2023-08-23","2023-11-13","2024-07-11","2024-09-10","2022-12-20","2024-01-30","2023-08-14","2024-09-18","2023-04-27","2023-04-06","2024-05-28","2023-04-26","2021-11-29","2023-05-23","2022-07-18","2024-09-09","2023-04-27","2021-08-13","2022-08-11","2023-02-27","2023-11-16","2024-06-24","2024-03-04","2021-08-25","2023-05-06","2023-08-18","2024-09-14","2021-08-31","2023-09-14","2022-06-02","2022-03-08","2023-03-21","2023-11-13","2023-04-19","2023-06-26","2024-08-01","2024-09-30","2023-07-26","2023-08-10","2022-11-14","2022-11-16","2022-02-22","2021-07-22","2023-12-28","2023-08-22","2022-07-14","2022-03-11"],"y":[13,10,9,9,14,3,13,9,38,36,50,5,13,42,13,102,24,0,5,11,5,8,26,33,20,11,21,32,40,9,48,52,15,32,24,10,0,11,0,12,79,8,33,30,14,10,37,10,37,42,3,12,5,31,34,29,5,9,26,6,18,2,19,43,17,18,0,47,7,7,29,46,13,24,30,0,17,27,5,7,12,20,25,30,24,52,24,2,2,17,11,29,23,25,10,13,40,10,37,7,11,6,43,28,99,7,5,27,3,15,30,12,20,33,13,24,12,10,4,7,14,12,22,13,2,12,8,2,80,41,39,27,25,2,20,17,24,7,65,17,5,22,2,33,23,13,8,26,12,0,42,22,25,6,5,25,25,19,19,12,35,10,18,11,11,17,10,12,40,58,6,66,9,26,7,7,17,9,7,12,7,12,12,7,3,3,20,13,64,44,19,3,48,33,10,10,3,12,38,22,26,11,40,24,8,52,0,33,6,10,9,9,2,16,11,13,34,23,20,35,32,12,13,32,18,82,9,40,7,9,39,15,12,12,18,10,13,25,0,13,19,3,5,19,9,9,11,13,20,11,18,9,22,7,37,19,17,15,13,27,33,29,18,18,24,43,12,16,9,14,12,17,28,5,54,17,15,7,13,7,2,11,31,26,9,2,12,64,7,36,52,10,42,0,18,21,22,25,10,24,39,17,12,23,11,34,5,13,2,7,25,12,7,31,25,34,24,20,4,36,5,8,0,14,10,2,34,36,6,29,18,45,7,12,12,20,26,26,34,5,3,47,16,19,49,11,24,18,2,17,13,34,2,9,66,0,32,38,24,27,12,17,10,69,4,34,23,7,8,0,44,4,32,27,2,7,7,65,26,22,23,59,13,42,19,35,3,12,10,43,7,9,18,5,0,10,2,34,17,21,9,66,12,9,73,83,31,19,33,41,12,21,5,0,13,5,12,2,63,25,12,32,21,25,10,5,25,19,11,62,32,24,26,10,30,21,25,21,13,39,13,69,11,12,13,33,17,17,22,5,58,40,26,70,27,51,25,11,22,10,0,106,18,9,7,3,8,20,18,11,5,33,18,13,11,11,4,21,5,23,39,13,31,20,9,12,10,16,18,27,35,10,0,31,13,25,9,28,0,14,24,8,22,16,23,32,14,27,26,26,11,40,2,25,2,41,13,24,56,11,10,24,33,56,56,10,29,53,5,31,21,29,24,43,24,21,22,13,12,9,24,29,12,23,5,2,26,9,41,32,5,7,22,11,10,66,15,12,18,26,13,23,13,21,45,8,10,20,20,41,32,43,2,19,21,7,10,66,26,19,20,23,9,27,11,11,2,11,31,31,32,24,10,40,26,8,19,17,47,37,45,9,9,32,77,64,20,67,0,20,0,11,33,21,5,7,26,5,10,4,22,12,7,2,25,7,18,0,5,8,45,2,27,14,29,20,8,19,5,0,54,7,24,48,34,10,54,47,9,13,73,44,3,9,9,13,25,7,56,7,17,30,9,11,7,42,48,12,22,6,7,2,15,9,21,12,39,5,29,10,56,72,4,47,7,10,18,23,20,19,12,13,7,48,25,38,5,12,31,5,21,11,26,9,13,0,9,23,35,7,5,7,8,19,32,30,28,10,2,10,0,9,12,25,9,13,19,22,9,7,21,13,7,41,12,7,5,13,50,47,39,27,20,39,35,24,11,4,24,5,11,19,2,23,55,18,7,31,8,7,5,12,35,50,22,27,11,8,22,20,7,12,9,3,8,83,9,10,25,39,13,16,23,20,43,9,9,64,0,20,10,21,27,7,6,2,50,24,45,23,40,5,28,5,19,73,22,8,56,11,8,9,49,13,7,21,43,20,7,24,7,13,53,18,43,14,48,28,26,3,11,40,19,29,29,23,38,10,13,8,74,26,9,22,4,5,47,45,13,5,14,19,12,3,3,9,20,13,13,47,66,12,13,13,29,5,17,12,2,10,11,12,5,18,19,6,8,16,22,4,9,10,7,33,2,31,3,7,14,10,30,5,7,6,4,9,18,79,11,14,21,26,10,3,17,2,2,35,5,12,28,28,10,9,13,9,11,21,24,28,14,28,19,32,10,15,22,36,10,91,9,13,13,0,10,16,5,13,3,31,10,0,9,13,12,21,13,14,38,13,49,28,10,45,10,12,22,23,4,5,17,8,13,15,8,11,3,28,0,13,19,6,4,25,12,22,10,11,4,5,7,11,12,3,5,13,7,8,10,30,44,31,13,7,7,25,22,17,67,13],"mode":"markers","text":["Borough:Bronx<br />Score:13","Borough:Manhattan<br />Score:10","Borough:Manhattan<br />Score:9","Borough:Manhattan<br />Score:9","Borough:Brooklyn<br />Score:14","Borough:Manhattan<br />Score:3","Borough:Queens<br />Score:13","Borough:Manhattan<br />Score:9","Borough:Manhattan<br />Score:38","Borough:Brooklyn<br />Score:36","Borough:Brooklyn<br />Score:50","Borough:Manhattan<br />Score:5","Borough:Staten Island<br />Score:13","Borough:Manhattan<br />Score:42","Borough:Brooklyn<br />Score:13","Borough:Manhattan<br />Score:102","Borough:Manhattan<br />Score:24","Borough:Queens<br />Score:0","Borough:Manhattan<br />Score:5","Borough:Queens<br />Score:11","Borough:Brooklyn<br />Score:5","Borough:Queens<br />Score:8","Borough:Manhattan<br />Score:26","Borough:Manhattan<br />Score:33","Borough:Queens<br />Score:20","Borough:Manhattan<br />Score:11","Borough:Manhattan<br />Score:21","Borough:Queens<br />Score:32","Borough:Brooklyn<br />Score:40","Borough:Manhattan<br />Score:9","Borough:Brooklyn<br />Score:48","Borough:Manhattan<br />Score:52","Borough:Brooklyn<br />Score:15","Borough:Queens<br />Score:32","Borough:Queens<br />Score:24","Borough:Manhattan<br />Score:10","Borough:Queens<br />Score:0","Borough:Queens<br />Score:11","Borough:Manhattan<br />Score:0","Borough:Brooklyn<br />Score:12","Borough:Manhattan<br />Score:79","Borough:Manhattan<br />Score:8","Borough:Bronx<br />Score:33","Borough:Bronx<br />Score:30","Borough:Manhattan<br />Score:14","Borough:Queens<br />Score:10","Borough:Brooklyn<br />Score:37","Borough:Queens<br />Score:10","Borough:Manhattan<br />Score:37","Borough:Manhattan<br />Score:42","Borough:Queens<br />Score:3","Borough:Queens<br />Score:12","Borough:Manhattan<br />Score:5","Borough:Bronx<br />Score:31","Borough:Queens<br />Score:34","Borough:Brooklyn<br />Score:29","Borough:Bronx<br />Score:5","Borough:Brooklyn<br />Score:9","Borough:Manhattan<br />Score:26","Borough:Bronx<br />Score:6","Borough:Manhattan<br />Score:18","Borough:Brooklyn<br />Score:2","Borough:Queens<br />Score:19","Borough:Brooklyn<br />Score:43","Borough:Staten Island<br />Score:17","Borough:Manhattan<br />Score:18","Borough:Manhattan<br />Score:0","Borough:Manhattan<br />Score:47","Borough:Queens<br />Score:7","Borough:Manhattan<br />Score:7","Borough:Brooklyn<br />Score:29","Borough:Manhattan<br />Score:46","Borough:Queens<br />Score:13","Borough:Queens<br />Score:24","Borough:Brooklyn<br />Score:30","Borough:Queens<br />Score:0","Borough:Bronx<br />Score:17","Borough:Manhattan<br />Score:27","Borough:Brooklyn<br />Score:5","Borough:Manhattan<br />Score:7","Borough:Brooklyn<br />Score:12","Borough:Queens<br />Score:20","Borough:Queens<br />Score:25","Borough:Manhattan<br />Score:30","Borough:Bronx<br />Score:24","Borough:Brooklyn<br />Score:52","Borough:Staten Island<br />Score:24","Borough:Queens<br />Score:2","Borough:Manhattan<br />Score:2","Borough:Brooklyn<br />Score:17","Borough:Brooklyn<br />Score:11","Borough:Queens<br />Score:29","Borough:Manhattan<br />Score:23","Borough:Brooklyn<br />Score:25","Borough:Bronx<br />Score:10","Borough:Queens<br />Score:13","Borough:Bronx<br />Score:40","Borough:Queens<br />Score:10","Borough:Brooklyn<br />Score:37","Borough:Bronx<br />Score:7","Borough:Queens<br />Score:11","Borough:Queens<br />Score:6","Borough:Queens<br />Score:43","Borough:Manhattan<br />Score:28","Borough:Bronx<br />Score:99","Borough:Queens<br />Score:7","Borough:Brooklyn<br />Score:5","Borough:Manhattan<br />Score:27","Borough:Bronx<br />Score:3","Borough:Manhattan<br />Score:15","Borough:Manhattan<br />Score:30","Borough:Brooklyn<br />Score:12","Borough:Queens<br />Score:20","Borough:Queens<br />Score:33","Borough:Queens<br />Score:13","Borough:Bronx<br />Score:24","Borough:Brooklyn<br />Score:12","Borough:Manhattan<br />Score:10","Borough:Manhattan<br />Score:4","Borough:Queens<br />Score:7","Borough:Manhattan<br />Score:14","Borough:Manhattan<br />Score:12","Borough:Brooklyn<br />Score:22","Borough:Staten Island<br />Score:13","Borough:Brooklyn<br />Score:2","Borough:Staten Island<br />Score:12","Borough:Manhattan<br />Score:8","Borough:Manhattan<br />Score:2","Borough:Queens<br />Score:80","Borough:Brooklyn<br />Score:41","Borough:Queens<br />Score:39","Borough:Brooklyn<br />Score:27","Borough:Queens<br />Score:25","Borough:Brooklyn<br />Score:2","Borough:Manhattan<br />Score:20","Borough:Bronx<br />Score:17","Borough:Brooklyn<br />Score:24","Borough:Brooklyn<br />Score:7","Borough:Brooklyn<br />Score:65","Borough:Brooklyn<br />Score:17","Borough:Brooklyn<br />Score:5","Borough:Manhattan<br />Score:22","Borough:Brooklyn<br />Score:2","Borough:Staten Island<br />Score:33","Borough:Manhattan<br />Score:23","Borough:Queens<br />Score:13","Borough:Queens<br />Score:8","Borough:Brooklyn<br />Score:26","Borough:Queens<br />Score:12","Borough:Queens<br />Score:0","Borough:Manhattan<br />Score:42","Borough:Manhattan<br />Score:22","Borough:Queens<br />Score:25","Borough:Manhattan<br />Score:6","Borough:Manhattan<br />Score:5","Borough:Queens<br />Score:25","Borough:Manhattan<br />Score:25","Borough:Brooklyn<br />Score:19","Borough:Queens<br />Score:19","Borough:Staten Island<br />Score:12","Borough:Queens<br />Score:35","Borough:Queens<br />Score:10","Borough:Staten Island<br />Score:18","Borough:Manhattan<br />Score:11","Borough:Staten Island<br />Score:11","Borough:Manhattan<br />Score:17","Borough:Manhattan<br />Score:10","Borough:Manhattan<br />Score:12","Borough:Brooklyn<br />Score:40","Borough:Brooklyn<br />Score:58","Borough:Brooklyn<br />Score:6","Borough:Queens<br />Score:66","Borough:Bronx<br />Score:9","Borough:Brooklyn<br />Score:26","Borough:Queens<br />Score:7","Borough:Manhattan<br />Score:7","Borough:Bronx<br />Score:17","Borough:Queens<br />Score:9","Borough:Bronx<br />Score:7","Borough:Brooklyn<br />Score:12","Borough:Queens<br />Score:7","Borough:Queens<br />Score:12","Borough:Queens<br />Score:12","Borough:Brooklyn<br />Score:7","Borough:Queens<br />Score:3","Borough:Manhattan<br />Score:3","Borough:Queens<br />Score:20","Borough:Staten Island<br />Score:13","Borough:Manhattan<br />Score:64","Borough:Brooklyn<br />Score:44","Borough:Brooklyn<br />Score:19","Borough:Manhattan<br />Score:3","Borough:Brooklyn<br />Score:48","Borough:Manhattan<br />Score:33","Borough:Manhattan<br />Score:10","Borough:Manhattan<br />Score:10","Borough:Manhattan<br />Score:3","Borough:Brooklyn<br />Score:12","Borough:Manhattan<br />Score:38","Borough:Queens<br />Score:22","Borough:Queens<br />Score:26","Borough:Brooklyn<br />Score:11","Borough:Manhattan<br />Score:40","Borough:Manhattan<br />Score:24","Borough:Manhattan<br />Score:8","Borough:Queens<br />Score:52","Borough:Brooklyn<br />Score:0","Borough:Brooklyn<br />Score:33","Borough:Manhattan<br />Score:6","Borough:Brooklyn<br />Score:10","Borough:Bronx<br />Score:9","Borough:Manhattan<br />Score:9","Borough:Brooklyn<br />Score:2","Borough:Queens<br />Score:16","Borough:Queens<br />Score:11","Borough:Brooklyn<br />Score:13","Borough:Brooklyn<br />Score:34","Borough:Brooklyn<br />Score:23","Borough:Bronx<br />Score:20","Borough:Manhattan<br />Score:35","Borough:Queens<br />Score:32","Borough:Bronx<br />Score:12","Borough:Manhattan<br />Score:13","Borough:Queens<br />Score:32","Borough:Bronx<br />Score:18","Borough:Manhattan<br />Score:82","Borough:Queens<br />Score:9","Borough:Manhattan<br />Score:40","Borough:Manhattan<br />Score:7","Borough:Manhattan<br />Score:9","Borough:Manhattan<br />Score:39","Borough:Manhattan<br />Score:15","Borough:Staten Island<br />Score:12","Borough:Manhattan<br />Score:12","Borough:Staten Island<br />Score:18","Borough:Brooklyn<br />Score:10","Borough:Queens<br />Score:13","Borough:Brooklyn<br />Score:25","Borough:Manhattan<br />Score:0","Borough:Manhattan<br />Score:13","Borough:Queens<br />Score:19","Borough:Queens<br />Score:3","Borough:Manhattan<br />Score:5","Borough:Brooklyn<br />Score:19","Borough:Brooklyn<br />Score:9","Borough:Queens<br />Score:9","Borough:Bronx<br />Score:11","Borough:Brooklyn<br />Score:13","Borough:Manhattan<br />Score:20","Borough:Bronx<br />Score:11","Borough:Queens<br />Score:18","Borough:Staten Island<br />Score:9","Borough:Queens<br />Score:22","Borough:Queens<br />Score:7","Borough:Manhattan<br />Score:37","Borough:Brooklyn<br />Score:19","Borough:Staten Island<br />Score:17","Borough:Queens<br />Score:15","Borough:Brooklyn<br />Score:13","Borough:Queens<br />Score:27","Borough:Manhattan<br />Score:33","Borough:Queens<br />Score:29","Borough:Bronx<br />Score:18","Borough:Manhattan<br />Score:18","Borough:Queens<br />Score:24","Borough:Queens<br />Score:43","Borough:Manhattan<br />Score:12","Borough:Manhattan<br />Score:16","Borough:Bronx<br />Score:9","Borough:Manhattan<br />Score:14","Borough:Queens<br />Score:12","Borough:Brooklyn<br />Score:17","Borough:Brooklyn<br />Score:28","Borough:Manhattan<br />Score:5","Borough:Brooklyn<br />Score:54","Borough:Manhattan<br />Score:17","Borough:Manhattan<br />Score:15","Borough:Brooklyn<br />Score:7","Borough:Queens<br />Score:13","Borough:Manhattan<br />Score:7","Borough:Brooklyn<br />Score:2","Borough:Bronx<br />Score:11","Borough:Manhattan<br />Score:31","Borough:Brooklyn<br />Score:26","Borough:Queens<br />Score:9","Borough:Brooklyn<br />Score:2","Borough:Brooklyn<br />Score:12","Borough:Manhattan<br />Score:64","Borough:Manhattan<br />Score:7","Borough:Manhattan<br />Score:36","Borough:Manhattan<br />Score:52","Borough:Bronx<br />Score:10","Borough:Staten Island<br />Score:42","Borough:Brooklyn<br />Score:0","Borough:Manhattan<br />Score:18","Borough:Manhattan<br />Score:21","Borough:Manhattan<br />Score:22","Borough:Queens<br />Score:25","Borough:Queens<br />Score:10","Borough:Brooklyn<br />Score:24","Borough:Manhattan<br />Score:39","Borough:Queens<br />Score:17","Borough:Queens<br />Score:12","Borough:Bronx<br />Score:23","Borough:Brooklyn<br />Score:11","Borough:Queens<br />Score:34","Borough:Bronx<br />Score:5","Borough:Manhattan<br />Score:13","Borough:Brooklyn<br />Score:2","Borough:Brooklyn<br />Score:7","Borough:Queens<br />Score:25","Borough:Manhattan<br />Score:12","Borough:Brooklyn<br />Score:7","Borough:Brooklyn<br />Score:31","Borough:Manhattan<br />Score:25","Borough:Brooklyn<br />Score:34","Borough:Manhattan<br />Score:24","Borough:Bronx<br />Score:20","Borough:Queens<br />Score:4","Borough:Brooklyn<br />Score:36","Borough:Manhattan<br />Score:5","Borough:Brooklyn<br />Score:8","Borough:Staten Island<br />Score:0","Borough:Queens<br />Score:14","Borough:Queens<br />Score:10","Borough:Manhattan<br />Score:2","Borough:Bronx<br />Score:34","Borough:Brooklyn<br />Score:36","Borough:Bronx<br />Score:6","Borough:Brooklyn<br />Score:29","Borough:Brooklyn<br />Score:18","Borough:Brooklyn<br />Score:45","Borough:Bronx<br />Score:7","Borough:Brooklyn<br />Score:12","Borough:Manhattan<br />Score:12","Borough:Brooklyn<br />Score:20","Borough:Queens<br />Score:26","Borough:Bronx<br />Score:26","Borough:Manhattan<br />Score:34","Borough:Manhattan<br />Score:5","Borough:Manhattan<br />Score:3","Borough:Brooklyn<br />Score:47","Borough:Bronx<br />Score:16","Borough:Manhattan<br />Score:19","Borough:Manhattan<br />Score:49","Borough:Manhattan<br />Score:11","Borough:Queens<br />Score:24","Borough:Manhattan<br />Score:18","Borough:Manhattan<br />Score:2","Borough:Brooklyn<br />Score:17","Borough:Queens<br />Score:13","Borough:Brooklyn<br />Score:34","Borough:Brooklyn<br />Score:2","Borough:Manhattan<br />Score:9","Borough:Brooklyn<br />Score:66","Borough:Queens<br />Score:0","Borough:Bronx<br />Score:32","Borough:Brooklyn<br />Score:38","Borough:Manhattan<br />Score:24","Borough:Manhattan<br />Score:27","Borough:Manhattan<br />Score:12","Borough:Manhattan<br />Score:17","Borough:Brooklyn<br />Score:10","Borough:Brooklyn<br />Score:69","Borough:Manhattan<br />Score:4","Borough:Queens<br />Score:34","Borough:Manhattan<br />Score:23","Borough:Brooklyn<br />Score:7","Borough:Brooklyn<br />Score:8","Borough:Bronx<br />Score:0","Borough:Manhattan<br />Score:44","Borough:Brooklyn<br />Score:4","Borough:Manhattan<br />Score:32","Borough:Queens<br />Score:27","Borough:Queens<br />Score:2","Borough:Queens<br />Score:7","Borough:Brooklyn<br />Score:7","Borough:Queens<br />Score:65","Borough:Manhattan<br />Score:26","Borough:Staten Island<br />Score:22","Borough:Manhattan<br />Score:23","Borough:Manhattan<br />Score:59","Borough:Brooklyn<br />Score:13","Borough:Manhattan<br />Score:42","Borough:Staten Island<br />Score:19","Borough:Brooklyn<br />Score:35","Borough:Brooklyn<br />Score:3","Borough:Queens<br />Score:12","Borough:Manhattan<br />Score:10","Borough:Queens<br />Score:43","Borough:Manhattan<br />Score:7","Borough:Manhattan<br />Score:9","Borough:Staten Island<br />Score:18","Borough:Manhattan<br />Score:5","Borough:Bronx<br />Score:0","Borough:Manhattan<br />Score:10","Borough:Queens<br />Score:2","Borough:Queens<br />Score:34","Borough:Queens<br />Score:17","Borough:Bronx<br />Score:21","Borough:Queens<br />Score:9","Borough:Manhattan<br />Score:66","Borough:Brooklyn<br />Score:12","Borough:Queens<br />Score:9","Borough:Staten Island<br />Score:73","Borough:Queens<br />Score:83","Borough:Brooklyn<br />Score:31","Borough:Bronx<br />Score:19","Borough:Brooklyn<br />Score:33","Borough:Brooklyn<br />Score:41","Borough:Queens<br />Score:12","Borough:Bronx<br />Score:21","Borough:Queens<br />Score:5","Borough:Manhattan<br />Score:0","Borough:Brooklyn<br />Score:13","Borough:Manhattan<br />Score:5","Borough:Brooklyn<br />Score:12","Borough:Queens<br />Score:2","Borough:Brooklyn<br />Score:63","Borough:Staten Island<br />Score:25","Borough:Manhattan<br />Score:12","Borough:Manhattan<br />Score:32","Borough:Manhattan<br />Score:21","Borough:Manhattan<br />Score:25","Borough:Bronx<br />Score:10","Borough:Bronx<br />Score:5","Borough:Queens<br />Score:25","Borough:Queens<br />Score:19","Borough:Bronx<br />Score:11","Borough:Brooklyn<br />Score:62","Borough:Brooklyn<br />Score:32","Borough:Queens<br />Score:24","Borough:Queens<br />Score:26","Borough:Queens<br />Score:10","Borough:Bronx<br />Score:30","Borough:Queens<br />Score:21","Borough:Manhattan<br />Score:25","Borough:Manhattan<br />Score:21","Borough:Manhattan<br />Score:13","Borough:Queens<br />Score:39","Borough:Manhattan<br />Score:13","Borough:Manhattan<br />Score:69","Borough:Queens<br />Score:11","Borough:Bronx<br />Score:12","Borough:Brooklyn<br />Score:13","Borough:Queens<br />Score:33","Borough:Manhattan<br />Score:17","Borough:Brooklyn<br />Score:17","Borough:Staten Island<br />Score:22","Borough:Brooklyn<br />Score:5","Borough:Staten Island<br />Score:58","Borough:Brooklyn<br />Score:40","Borough:Queens<br />Score:26","Borough:Manhattan<br />Score:70","Borough:Queens<br />Score:27","Borough:Brooklyn<br />Score:51","Borough:Brooklyn<br />Score:25","Borough:Staten Island<br />Score:11","Borough:Staten Island<br />Score:22","Borough:Queens<br />Score:10","Borough:Queens<br />Score:0","Borough:Bronx<br />Score:106","Borough:Manhattan<br />Score:18","Borough:Manhattan<br />Score:9","Borough:Brooklyn<br />Score:7","Borough:Queens<br />Score:3","Borough:Bronx<br />Score:8","Borough:Staten Island<br />Score:20","Borough:Manhattan<br />Score:18","Borough:Queens<br />Score:11","Borough:Queens<br />Score:5","Borough:Bronx<br />Score:33","Borough:Brooklyn<br />Score:18","Borough:Brooklyn<br />Score:13","Borough:Brooklyn<br />Score:11","Borough:Manhattan<br />Score:11","Borough:Brooklyn<br />Score:4","Borough:Staten Island<br />Score:21","Borough:Queens<br />Score:5","Borough:Manhattan<br />Score:23","Borough:Manhattan<br />Score:39","Borough:Manhattan<br />Score:13","Borough:Queens<br />Score:31","Borough:Queens<br />Score:20","Borough:Queens<br />Score:9","Borough:Manhattan<br />Score:12","Borough:Brooklyn<br />Score:10","Borough:Queens<br />Score:16","Borough:Brooklyn<br />Score:18","Borough:Queens<br />Score:27","Borough:Manhattan<br />Score:35","Borough:Brooklyn<br />Score:10","Borough:Queens<br />Score:0","Borough:Queens<br />Score:31","Borough:Brooklyn<br />Score:13","Borough:Brooklyn<br />Score:25","Borough:Staten Island<br />Score:9","Borough:Manhattan<br />Score:28","Borough:Manhattan<br />Score:0","Borough:Brooklyn<br />Score:14","Borough:Manhattan<br />Score:24","Borough:Queens<br />Score:8","Borough:Manhattan<br />Score:22","Borough:Bronx<br />Score:16","Borough:Bronx<br />Score:23","Borough:Manhattan<br />Score:32","Borough:Manhattan<br />Score:14","Borough:Brooklyn<br />Score:27","Borough:Manhattan<br />Score:26","Borough:Manhattan<br />Score:26","Borough:Staten Island<br />Score:11","Borough:Queens<br />Score:40","Borough:Manhattan<br />Score:2","Borough:Manhattan<br />Score:25","Borough:Queens<br />Score:2","Borough:Brooklyn<br />Score:41","Borough:Brooklyn<br />Score:13","Borough:Brooklyn<br />Score:24","Borough:Manhattan<br />Score:56","Borough:Bronx<br />Score:11","Borough:Staten Island<br />Score:10","Borough:Manhattan<br />Score:24","Borough:Manhattan<br />Score:33","Borough:Brooklyn<br />Score:56","Borough:Brooklyn<br />Score:56","Borough:Brooklyn<br />Score:10","Borough:Bronx<br />Score:29","Borough:Bronx<br />Score:53","Borough:Manhattan<br />Score:5","Borough:Manhattan<br />Score:31","Borough:Brooklyn<br />Score:21","Borough:Brooklyn<br />Score:29","Borough:Brooklyn<br />Score:24","Borough:Queens<br />Score:43","Borough:Manhattan<br />Score:24","Borough:Staten Island<br />Score:21","Borough:Queens<br />Score:22","Borough:Queens<br />Score:13","Borough:Manhattan<br />Score:12","Borough:Manhattan<br />Score:9","Borough:Bronx<br />Score:24","Borough:Queens<br />Score:29","Borough:Queens<br />Score:12","Borough:Bronx<br />Score:23","Borough:Manhattan<br />Score:5","Borough:Staten Island<br />Score:2","Borough:Manhattan<br />Score:26","Borough:Bronx<br />Score:9","Borough:Manhattan<br />Score:41","Borough:Queens<br />Score:32","Borough:Bronx<br />Score:5","Borough:Manhattan<br />Score:7","Borough:Brooklyn<br />Score:22","Borough:Queens<br />Score:11","Borough:Brooklyn<br />Score:10","Borough:Queens<br />Score:66","Borough:Queens<br />Score:15","Borough:Manhattan<br />Score:12","Borough:Brooklyn<br />Score:18","Borough:Brooklyn<br />Score:26","Borough:Queens<br />Score:13","Borough:Brooklyn<br />Score:23","Borough:Manhattan<br />Score:13","Borough:Queens<br />Score:21","Borough:Manhattan<br />Score:45","Borough:Queens<br />Score:8","Borough:Bronx<br />Score:10","Borough:Manhattan<br />Score:20","Borough:Queens<br />Score:20","Borough:Queens<br />Score:41","Borough:Bronx<br />Score:32","Borough:Manhattan<br />Score:43","Borough:Staten Island<br />Score:2","Borough:Brooklyn<br />Score:19","Borough:Manhattan<br />Score:21","Borough:Queens<br />Score:7","Borough:Brooklyn<br />Score:10","Borough:Brooklyn<br />Score:66","Borough:Queens<br />Score:26","Borough:Bronx<br />Score:19","Borough:Queens<br />Score:20","Borough:Queens<br />Score:23","Borough:Brooklyn<br />Score:9","Borough:Queens<br />Score:27","Borough:Queens<br />Score:11","Borough:Manhattan<br />Score:11","Borough:Queens<br />Score:2","Borough:Queens<br />Score:11","Borough:Manhattan<br />Score:31","Borough:Staten Island<br />Score:31","Borough:Manhattan<br />Score:32","Borough:Brooklyn<br />Score:24","Borough:Queens<br />Score:10","Borough:Brooklyn<br />Score:40","Borough:Queens<br />Score:26","Borough:Brooklyn<br />Score:8","Borough:Queens<br />Score:19","Borough:Manhattan<br />Score:17","Borough:Manhattan<br />Score:47","Borough:Bronx<br />Score:37","Borough:Queens<br />Score:45","Borough:Brooklyn<br />Score:9","Borough:Queens<br />Score:9","Borough:Queens<br />Score:32","Borough:Brooklyn<br />Score:77","Borough:Brooklyn<br />Score:64","Borough:Brooklyn<br />Score:20","Borough:Bronx<br />Score:67","Borough:Brooklyn<br />Score:0","Borough:Queens<br />Score:20","Borough:Manhattan<br />Score:0","Borough:Brooklyn<br />Score:11","Borough:Manhattan<br />Score:33","Borough:Queens<br />Score:21","Borough:Brooklyn<br />Score:5","Borough:Manhattan<br />Score:7","Borough:Manhattan<br />Score:26","Borough:Manhattan<br />Score:5","Borough:Bronx<br />Score:10","Borough:Brooklyn<br />Score:4","Borough:Brooklyn<br />Score:22","Borough:Queens<br />Score:12","Borough:Bronx<br />Score:7","Borough:Queens<br />Score:2","Borough:Bronx<br />Score:25","Borough:Manhattan<br />Score:7","Borough:Brooklyn<br />Score:18","Borough:Queens<br />Score:0","Borough:Brooklyn<br />Score:5","Borough:Bronx<br />Score:8","Borough:Queens<br />Score:45","Borough:Manhattan<br />Score:2","Borough:Queens<br />Score:27","Borough:Manhattan<br />Score:14","Borough:Brooklyn<br />Score:29","Borough:Brooklyn<br />Score:20","Borough:Manhattan<br />Score:8","Borough:Bronx<br />Score:19","Borough:Queens<br />Score:5","Borough:Brooklyn<br />Score:0","Borough:Brooklyn<br />Score:54","Borough:Brooklyn<br />Score:7","Borough:Manhattan<br />Score:24","Borough:Queens<br />Score:48","Borough:Manhattan<br />Score:34","Borough:Queens<br />Score:10","Borough:Manhattan<br />Score:54","Borough:Manhattan<br />Score:47","Borough:Queens<br />Score:9","Borough:Brooklyn<br />Score:13","Borough:Queens<br />Score:73","Borough:Brooklyn<br />Score:44","Borough:Staten Island<br />Score:3","Borough:Queens<br />Score:9","Borough:Brooklyn<br />Score:9","Borough:Manhattan<br />Score:13","Borough:Manhattan<br />Score:25","Borough:Manhattan<br />Score:7","Borough:Bronx<br />Score:56","Borough:Manhattan<br />Score:7","Borough:Queens<br />Score:17","Borough:Brooklyn<br />Score:30","Borough:Brooklyn<br />Score:9","Borough:Manhattan<br />Score:11","Borough:Queens<br />Score:7","Borough:Manhattan<br />Score:42","Borough:Manhattan<br />Score:48","Borough:Queens<br />Score:12","Borough:Bronx<br />Score:22","Borough:Queens<br />Score:6","Borough:Manhattan<br />Score:7","Borough:Brooklyn<br />Score:2","Borough:Queens<br />Score:15","Borough:Queens<br />Score:9","Borough:Brooklyn<br />Score:21","Borough:Queens<br />Score:12","Borough:Brooklyn<br />Score:39","Borough:Manhattan<br />Score:5","Borough:Queens<br />Score:29","Borough:Brooklyn<br />Score:10","Borough:Manhattan<br />Score:56","Borough:Queens<br />Score:72","Borough:Manhattan<br />Score:4","Borough:Manhattan<br />Score:47","Borough:Brooklyn<br />Score:7","Borough:Manhattan<br />Score:10","Borough:Manhattan<br />Score:18","Borough:Queens<br />Score:23","Borough:Brooklyn<br />Score:20","Borough:Manhattan<br />Score:19","Borough:Brooklyn<br />Score:12","Borough:Queens<br />Score:13","Borough:Queens<br />Score:7","Borough:Bronx<br />Score:48","Borough:Manhattan<br />Score:25","Borough:Queens<br />Score:38","Borough:Manhattan<br />Score:5","Borough:Manhattan<br />Score:12","Borough:Brooklyn<br />Score:31","Borough:Manhattan<br />Score:5","Borough:Brooklyn<br />Score:21","Borough:Manhattan<br />Score:11","Borough:Manhattan<br />Score:26","Borough:Staten Island<br />Score:9","Borough:Queens<br />Score:13","Borough:Manhattan<br />Score:0","Borough:Bronx<br />Score:9","Borough:Queens<br />Score:23","Borough:Brooklyn<br />Score:35","Borough:Bronx<br />Score:7","Borough:Brooklyn<br />Score:5","Borough:Brooklyn<br />Score:7","Borough:Brooklyn<br />Score:8","Borough:Brooklyn<br />Score:19","Borough:Manhattan<br />Score:32","Borough:Bronx<br />Score:30","Borough:Manhattan<br />Score:28","Borough:Brooklyn<br />Score:10","Borough:Brooklyn<br />Score:2","Borough:Brooklyn<br />Score:10","Borough:Bronx<br />Score:0","Borough:Manhattan<br />Score:9","Borough:Manhattan<br />Score:12","Borough:Manhattan<br />Score:25","Borough:Queens<br />Score:9","Borough:Manhattan<br />Score:13","Borough:Manhattan<br />Score:19","Borough:Queens<br />Score:22","Borough:Queens<br />Score:9","Borough:Brooklyn<br />Score:7","Borough:Queens<br />Score:21","Borough:Brooklyn<br />Score:13","Borough:Staten Island<br />Score:7","Borough:Queens<br />Score:41","Borough:Brooklyn<br />Score:12","Borough:Manhattan<br />Score:7","Borough:Queens<br />Score:5","Borough:Brooklyn<br />Score:13","Borough:Manhattan<br />Score:50","Borough:Queens<br />Score:47","Borough:Brooklyn<br />Score:39","Borough:Manhattan<br />Score:27","Borough:Manhattan<br />Score:20","Borough:Manhattan<br />Score:39","Borough:Queens<br />Score:35","Borough:Manhattan<br />Score:24","Borough:Brooklyn<br />Score:11","Borough:Queens<br />Score:4","Borough:Staten Island<br />Score:24","Borough:Bronx<br />Score:5","Borough:Manhattan<br />Score:11","Borough:Queens<br />Score:19","Borough:Brooklyn<br />Score:2","Borough:Queens<br />Score:23","Borough:Queens<br />Score:55","Borough:Manhattan<br />Score:18","Borough:Queens<br />Score:7","Borough:Brooklyn<br />Score:31","Borough:Queens<br />Score:8","Borough:Manhattan<br />Score:7","Borough:Brooklyn<br />Score:5","Borough:Queens<br />Score:12","Borough:Brooklyn<br />Score:35","Borough:Queens<br />Score:50","Borough:Manhattan<br />Score:22","Borough:Queens<br />Score:27","Borough:Manhattan<br />Score:11","Borough:Queens<br />Score:8","Borough:Queens<br />Score:22","Borough:Brooklyn<br />Score:20","Borough:Brooklyn<br />Score:7","Borough:Bronx<br />Score:12","Borough:Queens<br />Score:9","Borough:Queens<br />Score:3","Borough:Manhattan<br />Score:8","Borough:Brooklyn<br />Score:83","Borough:Queens<br />Score:9","Borough:Queens<br />Score:10","Borough:Manhattan<br />Score:25","Borough:Manhattan<br />Score:39","Borough:Manhattan<br />Score:13","Borough:Queens<br />Score:16","Borough:Manhattan<br />Score:23","Borough:Staten Island<br />Score:20","Borough:Manhattan<br />Score:43","Borough:Manhattan<br />Score:9","Borough:Bronx<br />Score:9","Borough:Queens<br />Score:64","Borough:Manhattan<br />Score:0","Borough:Queens<br />Score:20","Borough:Brooklyn<br />Score:10","Borough:Bronx<br />Score:21","Borough:Brooklyn<br />Score:27","Borough:Brooklyn<br />Score:7","Borough:Manhattan<br />Score:6","Borough:Brooklyn<br />Score:2","Borough:Bronx<br />Score:50","Borough:Manhattan<br />Score:24","Borough:Brooklyn<br />Score:45","Borough:Brooklyn<br />Score:23","Borough:Manhattan<br />Score:40","Borough:Queens<br />Score:5","Borough:Manhattan<br />Score:28","Borough:Queens<br />Score:5","Borough:Bronx<br />Score:19","Borough:Queens<br />Score:73","Borough:Brooklyn<br />Score:22","Borough:Manhattan<br />Score:8","Borough:Manhattan<br />Score:56","Borough:Bronx<br />Score:11","Borough:Queens<br />Score:8","Borough:Queens<br />Score:9","Borough:Queens<br />Score:49","Borough:Manhattan<br />Score:13","Borough:Brooklyn<br />Score:7","Borough:Queens<br />Score:21","Borough:Manhattan<br />Score:43","Borough:Brooklyn<br />Score:20","Borough:Queens<br />Score:7","Borough:Staten Island<br />Score:24","Borough:Queens<br />Score:7","Borough:Queens<br />Score:13","Borough:Queens<br />Score:53","Borough:Manhattan<br />Score:18","Borough:Brooklyn<br />Score:43","Borough:Manhattan<br />Score:14","Borough:Bronx<br />Score:48","Borough:Brooklyn<br />Score:28","Borough:Queens<br />Score:26","Borough:Manhattan<br />Score:3","Borough:Manhattan<br />Score:11","Borough:Queens<br />Score:40","Borough:Bronx<br />Score:19","Borough:Queens<br />Score:29","Borough:Bronx<br />Score:29","Borough:Brooklyn<br />Score:23","Borough:Brooklyn<br />Score:38","Borough:Bronx<br />Score:10","Borough:Brooklyn<br />Score:13","Borough:Manhattan<br />Score:8","Borough:Manhattan<br />Score:74","Borough:Brooklyn<br />Score:26","Borough:Manhattan<br />Score:9","Borough:Queens<br />Score:22","Borough:Manhattan<br />Score:4","Borough:Brooklyn<br />Score:5","Borough:Manhattan<br />Score:47","Borough:Queens<br />Score:45","Borough:Brooklyn<br />Score:13","Borough:Manhattan<br />Score:5","Borough:Queens<br />Score:14","Borough:Manhattan<br />Score:19","Borough:Brooklyn<br />Score:12","Borough:Queens<br />Score:3","Borough:Manhattan<br />Score:3","Borough:Queens<br />Score:9","Borough:Manhattan<br />Score:20","Borough:Queens<br />Score:13","Borough:Queens<br />Score:13","Borough:Manhattan<br />Score:47","Borough:Brooklyn<br />Score:66","Borough:Manhattan<br />Score:12","Borough:Bronx<br />Score:13","Borough:Manhattan<br />Score:13","Borough:Brooklyn<br />Score:29","Borough:Queens<br />Score:5","Borough:Brooklyn<br />Score:17","Borough:Queens<br />Score:12","Borough:Brooklyn<br />Score:2","Borough:Manhattan<br />Score:10","Borough:Manhattan<br />Score:11","Borough:Queens<br />Score:12","Borough:Queens<br />Score:5","Borough:Queens<br />Score:18","Borough:Manhattan<br />Score:19","Borough:Manhattan<br />Score:6","Borough:Brooklyn<br />Score:8","Borough:Manhattan<br />Score:16","Borough:Staten Island<br />Score:22","Borough:Manhattan<br />Score:4","Borough:Staten Island<br />Score:9","Borough:Manhattan<br />Score:10","Borough:Brooklyn<br />Score:7","Borough:Queens<br />Score:33","Borough:Manhattan<br />Score:2","Borough:Manhattan<br />Score:31","Borough:Manhattan<br />Score:3","Borough:Queens<br />Score:7","Borough:Staten Island<br />Score:14","Borough:Brooklyn<br />Score:10","Borough:Manhattan<br />Score:30","Borough:Brooklyn<br />Score:5","Borough:Manhattan<br />Score:7","Borough:Manhattan<br />Score:6","Borough:Manhattan<br />Score:4","Borough:Bronx<br />Score:9","Borough:Bronx<br />Score:18","Borough:Manhattan<br />Score:79","Borough:Staten Island<br />Score:11","Borough:Manhattan<br />Score:14","Borough:Brooklyn<br />Score:21","Borough:Brooklyn<br />Score:26","Borough:Bronx<br />Score:10","Borough:Manhattan<br />Score:3","Borough:Brooklyn<br />Score:17","Borough:Queens<br />Score:2","Borough:Manhattan<br />Score:2","Borough:Queens<br />Score:35","Borough:Manhattan<br />Score:5","Borough:Manhattan<br />Score:12","Borough:Queens<br />Score:28","Borough:Manhattan<br />Score:28","Borough:Brooklyn<br />Score:10","Borough:Manhattan<br />Score:9","Borough:Manhattan<br />Score:13","Borough:Queens<br />Score:9","Borough:Brooklyn<br />Score:11","Borough:Bronx<br />Score:21","Borough:Queens<br />Score:24","Borough:Brooklyn<br />Score:28","Borough:Bronx<br />Score:14","Borough:Queens<br />Score:28","Borough:Manhattan<br />Score:19","Borough:Queens<br />Score:32","Borough:Brooklyn<br />Score:10","Borough:Manhattan<br />Score:15","Borough:Manhattan<br />Score:22","Borough:Queens<br />Score:36","Borough:Queens<br />Score:10","Borough:Queens<br />Score:91","Borough:Manhattan<br />Score:9","Borough:Manhattan<br />Score:13","Borough:Brooklyn<br />Score:13","Borough:Brooklyn<br />Score:0","Borough:Brooklyn<br />Score:10","Borough:Brooklyn<br />Score:16","Borough:Manhattan<br />Score:5","Borough:Manhattan<br />Score:13","Borough:Manhattan<br />Score:3","Borough:Manhattan<br />Score:31","Borough:Manhattan<br />Score:10","Borough:Brooklyn<br />Score:0","Borough:Staten Island<br />Score:9","Borough:Staten Island<br />Score:13","Borough:Staten Island<br />Score:12","Borough:Manhattan<br />Score:21","Borough:Manhattan<br />Score:13","Borough:Staten Island<br />Score:14","Borough:Queens<br />Score:38","Borough:Brooklyn<br />Score:13","Borough:Manhattan<br />Score:49","Borough:Bronx<br />Score:28","Borough:Manhattan<br />Score:10","Borough:Brooklyn<br />Score:45","Borough:Queens<br />Score:10","Borough:Manhattan<br />Score:12","Borough:Brooklyn<br />Score:22","Borough:Manhattan<br />Score:23","Borough:Manhattan<br />Score:4","Borough:Manhattan<br />Score:5","Borough:Bronx<br />Score:17","Borough:Queens<br />Score:8","Borough:Manhattan<br />Score:13","Borough:Manhattan<br />Score:15","Borough:Brooklyn<br />Score:8","Borough:Brooklyn<br />Score:11","Borough:Staten Island<br />Score:3","Borough:Staten Island<br />Score:28","Borough:Queens<br />Score:0","Borough:Queens<br />Score:13","Borough:Bronx<br />Score:19","Borough:Queens<br />Score:6","Borough:Manhattan<br />Score:4","Borough:Brooklyn<br />Score:25","Borough:Brooklyn<br />Score:12","Borough:Manhattan<br />Score:22","Borough:Queens<br />Score:10","Borough:Manhattan<br />Score:11","Borough:Brooklyn<br />Score:4","Borough:Manhattan<br />Score:5","Borough:Brooklyn<br />Score:7","Borough:Manhattan<br />Score:11","Borough:Manhattan<br />Score:12","Borough:Queens<br />Score:3","Borough:Brooklyn<br />Score:5","Borough:Queens<br />Score:13","Borough:Bronx<br />Score:7","Borough:Brooklyn<br />Score:8","Borough:Staten Island<br />Score:10","Borough:Queens<br />Score:30","Borough:Bronx<br />Score:44","Borough:Manhattan<br />Score:31","Borough:Brooklyn<br />Score:13","Borough:Manhattan<br />Score:7","Borough:Bronx<br />Score:7","Borough:Queens<br />Score:25","Borough:Bronx<br />Score:22","Borough:Manhattan<br />Score:17","Borough:Manhattan<br />Score:67","Borough:Brooklyn<br />Score:13"],"type":"scatter","marker":{"color":"rgba(31,119,180,0.5)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,0.5)"},"error_x":{"color":"rgba(31,119,180,0.5)"},"line":{"color":"rgba(31,119,180,0.5)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<p>From this scatter plot, I find the positive relationship between
-inspection date and score. The distribution shows more intense
-inspection activities in the recent years of dataset.</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-84c017fa79c92d04b584" style="width:576px;height:460.8px;"></div>
+<script type="application/json" data-for="htmlwidget-84c017fa79c92d04b584">{"x":{"visdat":{"1671c266307ca":["function () ","plotlyVisDat"]},"cur_data":"1671c266307ca","attrs":{"1671c266307ca":{"x":{},"y":{},"mode":"markers","text":{},"alpha":0.5,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Scatterplot of Scores Over Inspection Dates","xaxis":{"domain":[0,1],"automargin":true,"title":"Inspection Date"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Score"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2017-08-02","2014-11-06","2014-07-29","2017-05-05","2015-07-30","2016-04-07","2014-11-20","2015-10-09","2017-08-17","2016-11-17","2017-01-03","2017-04-03","2017-08-04","2015-02-11","2016-01-12","2013-12-16","2015-06-11","2017-06-28","2015-10-26","2013-12-26","2017-09-27","2017-08-28","2014-11-28","2015-12-09","2014-12-31","2017-06-01","2017-03-21","2016-12-08","2016-06-15","2014-03-25","2016-06-10","2013-06-22","2016-04-30","2017-10-10","2016-09-29","2015-08-12","2015-04-09","2016-06-20","2015-12-09","2014-07-02","2014-08-13","2017-02-07","2014-12-10","2014-05-13","2015-03-09","2017-04-04","2016-12-27","2016-04-18","2014-09-24","2016-05-23","2016-01-05","2016-04-05","2015-12-15","2015-09-02","2015-06-18","2016-09-16","2017-07-26","2014-12-02","2016-08-04","2014-10-02","2017-03-03","2017-10-11","2016-02-22","2016-09-26","2015-10-15","2016-02-20","2015-01-09","2016-06-01","2016-03-29","2016-06-03","2016-11-22","2014-08-19","2015-11-05","2017-01-11","2014-07-03","2016-02-29","2017-07-24","2015-08-13","2016-02-02","2016-05-18","2015-09-10","2016-08-03","2015-01-21","2014-05-31","2017-02-08","2017-09-20","2017-03-28","2016-01-26","2015-02-04","2016-04-26","2017-03-03","2015-12-01","2016-04-15","2016-04-12","2017-09-14","2015-08-11","2016-05-13","2015-04-28","2014-10-21","2015-07-24","2015-07-13","2016-10-07","2015-10-15","2014-08-12","2014-07-07","2014-09-30","2016-06-23","2016-10-19","2014-05-19","2014-09-26","2016-02-08","2017-08-03","2017-03-20","2014-08-05","2014-08-07","2015-04-06","2017-04-25","2014-05-07","2017-06-26","2016-07-21","2017-03-29","2016-04-07","2014-05-01","2015-03-17","2016-02-10","2015-03-31","2016-09-12","2014-09-23","2015-08-31","2015-10-22","2017-01-30","2016-02-16","2016-06-14","2016-07-13","2014-09-17","2015-07-14","2015-01-20","2015-05-08","2017-03-16","2015-02-27","2016-03-21","2017-03-09","2017-06-12","2015-04-03","2016-09-01","2014-08-15","2014-05-28","2014-08-04","2014-10-24","2015-04-11","2016-12-16","2016-12-12","2015-01-29","2016-08-11","2015-06-17","2015-01-02","2016-10-04","2015-11-18","2017-07-18","2016-06-08","2015-01-20","2015-06-09","2016-11-03","2016-08-25","2017-05-17","2017-06-01","2015-09-08","2015-09-22","2015-08-19","2015-09-22","2017-03-29","2016-08-04","2017-07-25","2015-09-28","2015-06-02","2017-03-21","2015-11-18","2016-06-08","2016-09-16","2015-05-20","2017-01-13","2016-08-16","2017-09-20","2016-09-27","2014-08-19","2014-12-15","2017-08-21","2017-06-19","2014-10-15","2017-02-18","2017-03-07","2014-07-12","2014-11-19","2015-12-16","2017-03-08","2014-08-26","2015-06-04","2015-09-12","2016-03-03","2015-09-01","2015-04-28","2015-04-08","2014-10-23","2016-09-28","2014-12-01","2015-11-18","2015-05-19","2017-01-18","2014-10-22","2015-09-11","2015-12-18","2015-01-28","2015-01-16","2016-05-28","2015-08-13","2014-12-29","2015-12-28","2015-10-01","2015-01-09","2016-04-13","2016-12-09","2016-08-05","2017-04-03","2016-09-16","2017-02-01","2017-03-28","2017-05-30","2014-12-10","2017-02-22","2016-08-12","2017-01-09","2017-08-02","2016-11-07","2017-03-08","2016-01-16","2017-09-15","2016-09-29","2014-12-16","2015-11-23","2014-10-07","2016-05-31","2015-10-24","2014-05-29","2016-02-01","2015-11-19","2017-06-21","2015-09-16","2016-02-02","2017-02-21","2015-09-08","2017-09-07","2017-09-20","2014-12-05","2015-03-25","2016-07-21","2017-02-01","2016-09-20","2015-05-14","2015-08-17","2016-09-19","2016-11-28","2015-05-01","2015-06-05","2015-05-05","2016-07-22","2013-12-04","2015-02-17","2016-02-29","2014-09-05","2015-10-26","2015-11-12","2016-05-31","2017-08-02","2017-08-03","2016-09-29","2015-06-29","2016-02-09","2015-07-23","2015-09-17","2015-04-01","2015-12-31","2014-05-30","2014-10-01","2014-08-18","2016-08-11","2017-07-25","2015-02-03","2015-02-25","2014-02-11","2013-09-05","2014-10-11","2016-12-23","2017-01-10","2014-07-21","2016-06-16","2015-12-04","2017-05-09","2015-03-24","2017-01-19","2016-08-11","2017-02-10","2016-07-12","2017-03-11","2017-02-21","2016-05-24","2016-12-16","2015-03-05","2013-12-24","2016-08-03","2014-07-10","2015-08-12","2015-02-13","2017-03-27","2015-04-08","2015-10-08","2014-11-07","2016-02-26","2017-05-02","2015-12-24","2016-01-12","2015-06-22","2017-03-09","2014-11-07","2016-03-12","2016-04-23","2014-03-08","2016-09-12","2014-01-27","2015-06-30","2014-12-23","2015-05-06","2014-05-07","2016-06-06","2017-02-08","2015-10-27","2014-08-13","2014-03-26","2016-04-19","2016-03-15","2015-06-03","2014-04-25","2017-02-01","2014-03-06","2017-03-01","2016-12-18","2016-11-14","2014-12-24","2015-03-13","2015-03-25","2017-06-09","2015-03-14","2017-01-24","2014-08-20","2015-02-23","2015-02-19","2015-08-24","2015-03-17","2016-02-01","2016-08-10","2017-02-16","2014-05-16","2017-05-27","2016-04-16","2016-03-15","2015-07-31","2016-10-08","2015-06-17","2015-07-08","2015-07-29","2014-06-24","2017-10-04","2014-11-15","2015-01-26","2015-10-30","2016-08-17","2014-11-13","2016-01-20","2017-03-06","2014-11-25","2014-11-28","2017-05-03","2015-09-12","2017-10-10","2016-05-26","2014-03-31","2013-12-16","2014-08-28","2017-07-05","2016-12-20","2015-04-18","2014-05-08","2017-10-10","2017-02-23","2014-09-11","2015-12-21","2013-10-30","2016-11-15","2015-02-26","2016-04-25","2017-09-27","2014-01-09","2017-08-30","2014-03-12","2017-06-24","2014-11-29","2014-09-11","2014-04-09","2014-06-30","2016-10-01","2016-09-27","2016-05-17","2016-05-02","2014-11-13","2015-06-30","2016-10-17","2016-07-09","2015-09-01","2014-08-11","2016-07-13","2016-09-20","2014-10-27","2017-03-24","2016-01-21","2014-09-17","2014-04-21","2016-09-02","2016-08-12","2015-08-26","2015-02-09","2016-02-01","2016-04-07","2017-02-16","2017-08-16","2017-07-14","2017-07-20","2014-11-22","2017-09-19","2014-12-29","2014-09-26","2014-04-23","2017-08-14","2015-09-15","2015-06-24","2017-05-09","2016-02-25","2015-05-13","2017-04-07","2015-11-05","2016-03-01","2016-10-13","2016-10-17","2014-09-12","2014-08-27","2015-09-30","2015-03-26","2017-07-03","2017-07-18","2014-02-05","2014-10-21","2014-12-11","2014-06-26","2017-03-03","2014-07-01","2017-07-20","2015-06-29","2016-03-28","2014-01-09","2016-04-12","2016-08-05","2017-04-27","2014-09-16","2017-03-15","2015-05-15","2014-02-12","2016-01-13","2015-01-21","2015-04-01","2017-08-01","2015-05-13","2015-06-22","2016-01-19","2017-07-11","2014-11-20","2016-10-07","2015-07-28","2017-05-30","2016-03-03","2016-09-15","2015-10-20","2016-06-02","2015-05-27","2016-03-06","2016-11-15","2017-07-19","2015-10-27","2016-02-02","2015-12-03","2016-05-20","2015-04-02","2016-08-03","2016-03-04","2017-05-23","2016-10-13","2014-11-12","2015-11-04","2016-10-26","2016-08-23","2016-01-06","2014-03-25","2015-07-20","2016-08-18","2016-12-22","2017-09-07","2017-03-16","2015-10-31","2015-03-30","2017-01-25","2016-12-22","2016-01-26","2014-02-20","2017-05-10","2017-09-26","2015-02-23","2017-05-15","2015-09-30","2017-08-21","2014-09-09","2015-04-28","2016-05-22","2016-09-27","2017-08-11","2015-01-08","2016-10-06","2016-06-08","2017-05-27","2016-09-06","2016-10-14","2014-11-19","2017-08-29","2014-07-02","2017-06-08","2016-01-04","2015-03-17","2015-12-10","2017-02-08","2017-07-21","2016-11-03","2016-05-16","2017-05-26","2016-08-22","2017-07-12","2017-04-20","2015-03-16","2014-09-17","2017-07-07","2016-07-18","2014-04-14","2014-04-29","2016-04-21","2014-04-15","2014-12-30","2015-12-19","2016-12-06","2015-01-28","2015-02-05","2015-12-29","2015-05-04","2016-09-09","2016-06-11","2016-08-20","2014-02-28","2015-09-24","2017-02-16","2015-10-09","2017-01-19","2017-09-28","2017-08-31","2016-01-14","2015-06-25","2017-02-27","2015-12-14","2015-11-16","2017-04-27","2016-07-06","2016-11-03","2017-07-12","2015-05-18","2015-04-01","2015-06-17","2017-07-28","2015-04-29","2015-03-11","2016-02-23","2014-06-10","2014-09-09","2016-07-11","2017-03-28","2014-09-23","2015-02-12","2014-05-17","2016-01-04","2016-01-28","2014-11-19","2017-03-03","2015-12-15","2015-12-09","2015-08-04","2016-10-04","2017-05-15","2016-01-21","2014-12-01","2014-07-15","2017-10-17","2014-06-11","2014-09-18","2016-10-20","2015-09-19","2014-12-16","2016-01-08","2016-05-13","2017-05-10","2016-01-14","2015-01-30","2013-12-19","2016-04-01","2016-06-12","2014-12-10","2017-02-14","2014-06-24","2016-08-22","2015-02-10","2017-03-27","2014-06-21","2014-11-13","2014-12-18","2014-10-11","2017-09-14","2015-08-27","2015-05-11","2016-03-30","2017-07-31","2017-05-03","2017-07-25","2017-08-03","2016-04-14","2015-12-21","2014-10-16","2017-05-11","2015-04-17","2016-08-16","2016-04-18","2015-06-26","2015-02-11","2015-03-23","2016-10-12","2015-03-07","2015-01-14","2015-01-08","2016-03-24","2016-04-06","2014-09-05","2014-08-19","2015-05-04","2013-09-30","2017-09-21","2014-07-30","2016-04-15","2014-10-22","2014-06-16","2017-10-11","2015-06-08","2014-05-08","2015-09-30","2014-06-19","2013-12-16","2017-08-10","2015-08-19","2017-08-28","2015-07-31","2017-04-12","2016-05-09","2015-05-30","2017-02-24","2015-12-15","2014-06-06","2014-04-07","2014-05-29","2014-07-14","2017-03-11","2017-01-31","2017-08-30","2015-01-07","2015-12-10","2015-11-10","2015-06-10","2015-12-30","2014-10-06","2017-01-24","2016-06-14","2015-04-09","2017-02-24","2017-04-11","2015-03-11","2016-05-11","2016-06-30","2015-12-23","2017-08-10","2015-07-21","2014-04-10","2014-11-07","2016-03-09","2014-06-14","2015-03-10","2016-07-21","2016-12-08","2013-12-18","2016-07-21","2017-07-18","2015-09-10","2014-12-05","2016-06-29","2015-02-26","2015-05-26","2017-06-19","2015-06-24","2015-08-20","2017-10-04","2015-12-24","2014-12-22","2015-12-16","2016-04-21","2015-01-06","2017-08-14","2014-10-14","2016-09-29","2013-10-01","2016-06-09","2015-04-01","2017-03-30","2017-02-14","2015-02-23","2017-05-02","2015-06-30","2014-10-03","2015-06-10","2016-05-26","2017-06-15","2016-06-29","2017-09-07","2016-12-06","2017-04-19","2014-05-20","2017-09-29","2013-08-23","2017-05-09","2017-06-29","2015-11-04","2017-09-27","2017-07-06","2017-01-12","2015-09-02","2017-09-20","2014-08-19","2016-05-23","2017-04-20","2013-12-11","2013-10-23","2015-02-06","2016-07-22","2015-07-08","2017-02-06","2015-07-28","2015-10-22","2017-04-17","2014-12-19","2015-10-13","2016-02-08","2014-11-08","2016-10-17","2017-04-27","2015-03-24","2015-07-22","2016-03-28","2016-05-20","2015-05-11","2016-01-12","2015-06-16","2014-08-14","2014-02-25","2017-09-18","2014-09-05","2014-09-05","2015-03-03","2014-12-31","2016-03-10","2017-08-31","2017-08-24","2015-02-24","2015-10-19","2017-03-08","2015-04-15","2017-04-18","2015-02-28","2017-02-01","2015-03-18","2017-07-10","2016-01-29","2017-06-23","2015-06-20","2017-03-27","2015-02-11","2014-05-14","2016-11-29","2016-02-23","2016-01-29","2017-06-14","2014-02-28","2016-08-16","2016-05-02","2014-10-31","2015-12-29","2016-03-28","2017-05-09","2016-07-14","2016-07-05","2014-07-16","2017-10-04","2017-09-08","2014-10-22","2014-05-03","2015-04-07","2014-12-11","2016-02-16","2015-10-20","2015-08-13","2017-06-15","2016-03-15","2016-06-16","2016-09-09","2014-03-05","2016-05-03","2016-07-13","2015-07-09","2017-03-15","2017-06-28","2016-08-26","2017-07-13","2017-07-06","2017-09-20","2015-07-07","2014-04-09","2015-10-08","2015-12-15","2015-04-24","2015-10-21","2014-10-31","2015-07-27","2016-02-02","2015-12-17","2015-06-29","2015-05-29","2014-05-07","2016-12-16","2014-05-12","2014-12-18","2014-12-22","2014-10-29","2017-02-14","2015-11-30","2015-06-09","2016-05-09","2014-12-23","2017-06-01","2015-05-08","2016-06-12","2015-10-27","2016-02-19","2016-01-05","2015-06-09","2016-11-12","2014-12-22","2014-09-12","2017-08-10","2017-09-11","2015-07-31","2016-11-28","2017-04-03","2014-09-10","2015-11-05","2014-11-26","2015-07-16","2015-03-24","2014-10-09","2015-01-20","2017-04-12","2016-08-05","2015-11-09","2014-11-26","2016-12-15","2017-09-26","2015-12-10","2014-05-21","2014-08-23","2015-11-16","2017-01-05","2015-03-12","2014-12-12","2016-11-16","2016-12-06","2014-09-10","2016-04-29","2014-10-10","2015-04-20","2013-10-24","2016-05-02","2016-11-17","2014-06-18","2015-05-04","2017-05-05","2017-10-07","2014-09-10","2016-09-30","2015-03-09","2014-04-16","2015-09-02","2016-06-09","2015-02-18","2014-08-24","2014-12-01","2013-09-20","2015-06-05","2017-06-15","2017-07-13","2016-05-23","2016-11-22","2015-06-26","2017-07-24","2015-06-24","2015-02-21","2016-06-30","2014-10-29","2014-08-20","2015-07-09","2015-10-14","2015-05-21","2014-05-14","2014-10-06","2014-08-06","2016-10-03","2015-05-12","2015-10-26","2017-09-29","2015-06-11","2016-11-25","2017-08-23","2015-02-05","2014-11-18","2015-10-28","2017-07-18","2016-06-13","2015-03-16","2014-06-19","2015-10-09","2015-03-05","2015-11-27","2017-08-29","2014-07-16","2015-03-06","2014-12-06","2015-10-27","2016-04-14","2016-05-10","2014-11-21","2016-02-25","2015-06-17","2014-06-04","2014-05-19","2015-04-15","2017-05-16","2017-02-16","2013-11-12","2016-03-30","2014-05-21","2016-09-19","2014-12-02","2017-08-22","2015-12-01","2016-06-10","2015-08-24","2016-06-04","2016-09-08","2015-12-03","2015-02-09","2016-07-11","2017-01-23","2016-08-09","2017-06-21","2015-03-11","2015-10-30","2017-04-11"],"y":[14,2,12,3,7,9,3,18,17,18,47,4,8,23,13,5,28,4,5,3,29,35,9,7,2,17,10,10,11,21,45,11,5,65,41,37,7,7,3,28,4,22,12,9,25,15,6,13,38,19,8,3,9,8,13,13,10,16,8,2,14,46,8,24,11,28,37,17,21,6,36,5,7,32,19,2,31,19,7,12,54,11,11,0,18,116,6,9,11,11,21,21,12,54,49,9,20,27,4,2,2,5,15,4,5,12,50,20,13,57,2,11,20,32,20,9,35,14,8,16,23,25,9,8,17,18,12,3,24,30,19,12,33,45,13,15,11,10,7,12,7,2,40,26,12,13,31,38,5,13,4,25,25,6,0,25,15,15,39,9,10,19,12,7,76,58,29,12,19,12,18,14,10,17,17,11,11,17,37,6,23,3,41,9,16,12,30,17,11,13,12,2,24,38,30,15,13,38,16,0,10,12,11,12,20,7,18,0,12,9,4,22,0,17,26,18,19,66,6,9,2,12,5,11,13,15,3,3,45,17,19,61,37,35,30,10,22,2,7,10,2,2,6,17,3,17,10,11,14,35,22,16,10,19,11,9,4,9,5,5,5,8,8,9,14,0,17,26,14,11,16,0,30,13,16,9,21,10,23,24,10,12,40,12,7,24,19,3,31,4,11,7,18,15,8,9,29,5,10,3,20,18,2,15,36,2,0,20,8,53,16,15,3,26,5,4,36,33,10,8,27,28,22,21,7,25,24,12,2,19,18,11,43,14,7,40,11,5,17,56,20,12,14,43,3,25,4,10,13,21,20,5,20,4,25,21,4,9,48,8,11,16,13,0,19,23,29,68,12,12,4,13,15,2,2,9,5,7,10,31,25,32,64,18,10,19,8,10,13,12,17,10,22,26,19,12,8,15,35,15,0,21,4,49,18,0,16,22,12,33,51,14,23,12,7,10,23,8,5,11,14,40,12,17,12,35,18,7,5,57,0,32,0,24,31,41,29,2,7,2,23,13,15,20,2,8,12,10,12,11,24,19,12,12,17,11,39,21,26,25,10,13,14,9,12,28,36,31,29,11,2,10,23,22,17,10,17,31,17,12,9,26,2,15,19,13,20,7,12,14,16,12,33,2,9,13,25,35,18,20,17,35,31,19,14,7,9,14,12,17,12,7,25,40,38,7,9,2,5,19,6,33,29,29,33,33,15,12,12,14,13,21,24,19,9,9,19,11,55,11,27,12,24,30,11,10,10,7,10,12,8,15,11,7,32,5,11,18,33,19,10,3,35,12,24,57,87,10,12,10,2,13,33,12,21,55,10,6,17,12,22,5,10,8,25,31,29,31,13,9,13,10,4,10,37,23,7,22,2,11,4,20,14,21,13,12,10,7,10,30,39,4,25,18,16,11,11,11,11,5,4,14,30,4,12,19,33,5,9,10,19,0,7,10,11,29,18,0,16,14,9,19,5,43,19,10,3,34,16,23,6,5,14,13,13,4,10,4,24,13,12,30,5,10,25,20,22,28,40,26,39,19,43,35,11,120,6,4,18,40,25,9,34,0,22,4,20,11,7,15,3,7,7,27,28,18,21,2,7,28,0,30,5,7,10,5,7,12,31,18,10,12,16,33,0,9,11,2,42,17,9,18,5,14,13,10,42,12,22,47,5,16,24,48,8,32,5,16,32,22,12,7,11,22,17,38,51,9,12,11,21,6,18,11,40,46,9,9,19,13,55,62,2,17,12,7,10,5,6,14,13,10,57,25,7,22,22,10,21,30,4,36,23,16,4,3,22,13,20,4,30,11,3,2,15,13,44,11,32,19,7,31,12,5,45,7,-1,18,2,22,3,2,35,10,24,35,4,47,9,111,20,9,27,26,47,16,22,9,24,7,21,7,17,4,7,9,9,22,10,9,15,2,11,7,52,2,42,21,15,22,33,11,32,12,34,18,26,10,31,24,20,19,10,14,2,8,5,18,9,5,8,8,22,4,4,20,6,29,21,20,11,10,21,37,2,33,4,12,9,13,16,20,2,25,31,20,14,10,13,21,22,4,37,10,7,19,10,8,15,2,4,9,18,0,25,6,10,5,16,35,26,14,13,12,14,7,5,10,14,13,22,18,0,5,13,19,23,10,12,17,19,13,3,20,5,3,7,21,12,16,4,20,43,4,5,4,2,15,25,11,35,20,11,10,18,24,14,2,14,20,7,18,21,10,30,12,13,30,36,16,3,27,30,15,3,4,6,7,2,13,9,64,6,10,5,16,10,22,8,24],"mode":"markers","text":["Borough:BRONX<br />Score:14","Borough:QUEENS<br />Score:2","Borough:BRONX<br />Score:12","Borough:QUEENS<br />Score:3","Borough:MANHATTAN<br />Score:7","Borough:MANHATTAN<br />Score:9","Borough:BROOKLYN<br />Score:3","Borough:QUEENS<br />Score:18","Borough:MANHATTAN<br />Score:17","Borough:QUEENS<br />Score:18","Borough:BROOKLYN<br />Score:47","Borough:MANHATTAN<br />Score:4","Borough:BROOKLYN<br />Score:8","Borough:MANHATTAN<br />Score:23","Borough:BROOKLYN<br />Score:13","Borough:MANHATTAN<br />Score:5","Borough:MANHATTAN<br />Score:28","Borough:MANHATTAN<br />Score:4","Borough:MANHATTAN<br />Score:5","Borough:BRONX<br />Score:3","Borough:BRONX<br />Score:29","Borough:BROOKLYN<br />Score:35","Borough:BROOKLYN<br />Score:9","Borough:BROOKLYN<br />Score:7","Borough:BROOKLYN<br />Score:2","Borough:QUEENS<br />Score:17","Borough:QUEENS<br />Score:10","Borough:BROOKLYN<br />Score:10","Borough:QUEENS<br />Score:11","Borough:BROOKLYN<br />Score:21","Borough:BRONX<br />Score:45","Borough:BROOKLYN<br />Score:11","Borough:MANHATTAN<br />Score:5","Borough:BROOKLYN<br />Score:65","Borough:BRONX<br />Score:41","Borough:QUEENS<br />Score:37","Borough:MANHATTAN<br />Score:7","Borough:STATEN ISLAND<br />Score:7","Borough:STATEN ISLAND<br />Score:3","Borough:QUEENS<br />Score:28","Borough:QUEENS<br />Score:4","Borough:MANHATTAN<br />Score:22","Borough:BROOKLYN<br />Score:12","Borough:BROOKLYN<br />Score:9","Borough:MANHATTAN<br />Score:25","Borough:BROOKLYN<br />Score:15","Borough:BRONX<br />Score:6","Borough:BRONX<br />Score:13","Borough:QUEENS<br />Score:38","Borough:MANHATTAN<br />Score:19","Borough:BROOKLYN<br />Score:8","Borough:BRONX<br />Score:3","Borough:BROOKLYN<br />Score:9","Borough:BROOKLYN<br />Score:8","Borough:BROOKLYN<br />Score:13","Borough:QUEENS<br />Score:13","Borough:MANHATTAN<br />Score:10","Borough:MANHATTAN<br />Score:16","Borough:MANHATTAN<br />Score:8","Borough:QUEENS<br />Score:2","Borough:BRONX<br />Score:14","Borough:QUEENS<br />Score:46","Borough:STATEN ISLAND<br />Score:8","Borough:MANHATTAN<br />Score:24","Borough:QUEENS<br />Score:11","Borough:QUEENS<br />Score:28","Borough:MANHATTAN<br />Score:37","Borough:MANHATTAN<br />Score:17","Borough:MANHATTAN<br />Score:21","Borough:MANHATTAN<br />Score:6","Borough:QUEENS<br />Score:36","Borough:QUEENS<br />Score:5","Borough:BROOKLYN<br />Score:7","Borough:MANHATTAN<br />Score:32","Borough:MANHATTAN<br />Score:19","Borough:QUEENS<br />Score:2","Borough:STATEN ISLAND<br />Score:31","Borough:QUEENS<br />Score:19","Borough:BRONX<br />Score:7","Borough:QUEENS<br />Score:12","Borough:BROOKLYN<br />Score:54","Borough:QUEENS<br />Score:11","Borough:QUEENS<br />Score:11","Borough:BRONX<br />Score:0","Borough:MANHATTAN<br />Score:18","Borough:MANHATTAN<br />Score:116","Borough:QUEENS<br />Score:6","Borough:BRONX<br />Score:9","Borough:MANHATTAN<br />Score:11","Borough:BROOKLYN<br />Score:11","Borough:BROOKLYN<br />Score:21","Borough:BRONX<br />Score:21","Borough:BROOKLYN<br />Score:12","Borough:MANHATTAN<br />Score:54","Borough:MANHATTAN<br />Score:49","Borough:STATEN ISLAND<br />Score:9","Borough:MANHATTAN<br />Score:20","Borough:BRONX<br />Score:27","Borough:QUEENS<br />Score:4","Borough:BROOKLYN<br />Score:2","Borough:BROOKLYN<br />Score:2","Borough:BROOKLYN<br />Score:5","Borough:STATEN ISLAND<br />Score:15","Borough:BROOKLYN<br />Score:4","Borough:MANHATTAN<br />Score:5","Borough:MANHATTAN<br />Score:12","Borough:BRONX<br />Score:50","Borough:BRONX<br />Score:20","Borough:QUEENS<br />Score:13","Borough:MANHATTAN<br />Score:57","Borough:BROOKLYN<br />Score:2","Borough:BROOKLYN<br />Score:11","Borough:QUEENS<br />Score:20","Borough:MANHATTAN<br />Score:32","Borough:BRONX<br />Score:20","Borough:BROOKLYN<br />Score:9","Borough:MANHATTAN<br />Score:35","Borough:MANHATTAN<br />Score:14","Borough:MANHATTAN<br />Score:8","Borough:MANHATTAN<br />Score:16","Borough:MANHATTAN<br />Score:23","Borough:MANHATTAN<br />Score:25","Borough:QUEENS<br />Score:9","Borough:MANHATTAN<br />Score:8","Borough:BRONX<br />Score:17","Borough:QUEENS<br />Score:18","Borough:MANHATTAN<br />Score:12","Borough:BRONX<br />Score:3","Borough:QUEENS<br />Score:24","Borough:MANHATTAN<br />Score:30","Borough:QUEENS<br />Score:19","Borough:MANHATTAN<br />Score:12","Borough:BROOKLYN<br />Score:33","Borough:MANHATTAN<br />Score:45","Borough:QUEENS<br />Score:13","Borough:MANHATTAN<br />Score:15","Borough:QUEENS<br />Score:11","Borough:QUEENS<br />Score:10","Borough:BRONX<br />Score:7","Borough:QUEENS<br />Score:12","Borough:MANHATTAN<br />Score:7","Borough:BROOKLYN<br />Score:2","Borough:MANHATTAN<br />Score:40","Borough:QUEENS<br />Score:26","Borough:MANHATTAN<br />Score:12","Borough:MANHATTAN<br />Score:13","Borough:BROOKLYN<br />Score:31","Borough:MANHATTAN<br />Score:38","Borough:MANHATTAN<br />Score:5","Borough:BROOKLYN<br />Score:13","Borough:MANHATTAN<br />Score:4","Borough:MANHATTAN<br />Score:25","Borough:MANHATTAN<br />Score:25","Borough:BROOKLYN<br />Score:6","Borough:BRONX<br />Score:0","Borough:BRONX<br />Score:25","Borough:STATEN ISLAND<br />Score:15","Borough:BROOKLYN<br />Score:15","Borough:STATEN ISLAND<br />Score:39","Borough:MANHATTAN<br />Score:9","Borough:MANHATTAN<br />Score:10","Borough:STATEN ISLAND<br />Score:19","Borough:QUEENS<br />Score:12","Borough:BRONX<br />Score:7","Borough:MANHATTAN<br />Score:76","Borough:BROOKLYN<br />Score:58","Borough:QUEENS<br />Score:29","Borough:BRONX<br />Score:12","Borough:QUEENS<br />Score:19","Borough:QUEENS<br />Score:12","Borough:BROOKLYN<br />Score:18","Borough:MANHATTAN<br />Score:14","Borough:BRONX<br />Score:10","Borough:QUEENS<br />Score:17","Borough:BROOKLYN<br />Score:17","Borough:MANHATTAN<br />Score:11","Borough:QUEENS<br />Score:11","Borough:BROOKLYN<br />Score:17","Borough:MANHATTAN<br />Score:37","Borough:MANHATTAN<br />Score:6","Borough:QUEENS<br />Score:23","Borough:BROOKLYN<br />Score:3","Borough:MANHATTAN<br />Score:41","Borough:MANHATTAN<br />Score:9","Borough:MANHATTAN<br />Score:16","Borough:QUEENS<br />Score:12","Borough:BRONX<br />Score:30","Borough:BRONX<br />Score:17","Borough:MANHATTAN<br />Score:11","Borough:BROOKLYN<br />Score:13","Borough:QUEENS<br />Score:12","Borough:BROOKLYN<br />Score:2","Borough:MANHATTAN<br />Score:24","Borough:BROOKLYN<br />Score:38","Borough:QUEENS<br />Score:30","Borough:BROOKLYN<br />Score:15","Borough:BROOKLYN<br />Score:13","Borough:QUEENS<br />Score:38","Borough:QUEENS<br />Score:16","Borough:BROOKLYN<br />Score:0","Borough:MANHATTAN<br />Score:10","Borough:MANHATTAN<br />Score:12","Borough:BRONX<br />Score:11","Borough:BRONX<br />Score:12","Borough:QUEENS<br />Score:20","Borough:QUEENS<br />Score:7","Borough:QUEENS<br />Score:18","Borough:QUEENS<br />Score:0","Borough:BROOKLYN<br />Score:12","Borough:MANHATTAN<br />Score:9","Borough:QUEENS<br />Score:4","Borough:BROOKLYN<br />Score:22","Borough:MANHATTAN<br />Score:0","Borough:BRONX<br />Score:17","Borough:MANHATTAN<br />Score:26","Borough:BRONX<br />Score:18","Borough:QUEENS<br />Score:19","Borough:BRONX<br />Score:66","Borough:MANHATTAN<br />Score:6","Borough:MANHATTAN<br />Score:9","Borough:MANHATTAN<br />Score:2","Borough:QUEENS<br />Score:12","Borough:QUEENS<br />Score:5","Borough:BROOKLYN<br />Score:11","Borough:MANHATTAN<br />Score:13","Borough:MANHATTAN<br />Score:15","Borough:BROOKLYN<br />Score:3","Borough:QUEENS<br />Score:3","Borough:MANHATTAN<br />Score:45","Borough:QUEENS<br />Score:17","Borough:MANHATTAN<br />Score:19","Borough:QUEENS<br />Score:61","Borough:MANHATTAN<br />Score:37","Borough:BROOKLYN<br />Score:35","Borough:MANHATTAN<br />Score:30","Borough:QUEENS<br />Score:10","Borough:QUEENS<br />Score:22","Borough:MANHATTAN<br />Score:2","Borough:BROOKLYN<br />Score:7","Borough:BRONX<br />Score:10","Borough:QUEENS<br />Score:2","Borough:BROOKLYN<br />Score:2","Borough:MANHATTAN<br />Score:6","Borough:QUEENS<br />Score:17","Borough:QUEENS<br />Score:3","Borough:QUEENS<br />Score:17","Borough:QUEENS<br />Score:10","Borough:BROOKLYN<br />Score:11","Borough:MANHATTAN<br />Score:14","Borough:QUEENS<br />Score:35","Borough:BRONX<br />Score:22","Borough:MANHATTAN<br />Score:16","Borough:STATEN ISLAND<br />Score:10","Borough:BROOKLYN<br />Score:19","Borough:BROOKLYN<br />Score:11","Borough:STATEN ISLAND<br />Score:9","Borough:BROOKLYN<br />Score:4","Borough:MANHATTAN<br />Score:9","Borough:MANHATTAN<br />Score:5","Borough:BROOKLYN<br />Score:5","Borough:MANHATTAN<br />Score:5","Borough:BRONX<br />Score:8","Borough:BROOKLYN<br />Score:8","Borough:BROOKLYN<br />Score:9","Borough:BRONX<br />Score:14","Borough:BROOKLYN<br />Score:0","Borough:STATEN ISLAND<br />Score:17","Borough:BROOKLYN<br />Score:26","Borough:QUEENS<br />Score:14","Borough:BROOKLYN<br />Score:11","Borough:BROOKLYN<br />Score:16","Borough:MANHATTAN<br />Score:0","Borough:MANHATTAN<br />Score:30","Borough:QUEENS<br />Score:13","Borough:MANHATTAN<br />Score:16","Borough:MANHATTAN<br />Score:9","Borough:QUEENS<br />Score:21","Borough:MANHATTAN<br />Score:10","Borough:BRONX<br />Score:23","Borough:BRONX<br />Score:24","Borough:MANHATTAN<br />Score:10","Borough:QUEENS<br />Score:12","Borough:MANHATTAN<br />Score:40","Borough:MANHATTAN<br />Score:12","Borough:BROOKLYN<br />Score:7","Borough:BROOKLYN<br />Score:24","Borough:QUEENS<br />Score:19","Borough:BRONX<br />Score:3","Borough:BROOKLYN<br />Score:31","Borough:MANHATTAN<br />Score:4","Borough:QUEENS<br />Score:11","Borough:BRONX<br />Score:7","Borough:QUEENS<br />Score:18","Borough:QUEENS<br />Score:15","Borough:MANHATTAN<br />Score:8","Borough:MANHATTAN<br />Score:9","Borough:MANHATTAN<br />Score:29","Borough:BROOKLYN<br />Score:5","Borough:STATEN ISLAND<br />Score:10","Borough:MANHATTAN<br />Score:3","Borough:BROOKLYN<br />Score:20","Borough:MANHATTAN<br />Score:18","Borough:MANHATTAN<br />Score:2","Borough:QUEENS<br />Score:15","Borough:MANHATTAN<br />Score:36","Borough:MANHATTAN<br />Score:2","Borough:MANHATTAN<br />Score:0","Borough:QUEENS<br />Score:20","Borough:MANHATTAN<br />Score:8","Borough:MANHATTAN<br />Score:53","Borough:BRONX<br />Score:16","Borough:MANHATTAN<br />Score:15","Borough:BROOKLYN<br />Score:3","Borough:MANHATTAN<br />Score:26","Borough:BROOKLYN<br />Score:5","Borough:MANHATTAN<br />Score:4","Borough:MANHATTAN<br />Score:36","Borough:BRONX<br />Score:33","Borough:QUEENS<br />Score:10","Borough:MANHATTAN<br />Score:8","Borough:MANHATTAN<br />Score:27","Borough:STATEN ISLAND<br />Score:28","Borough:QUEENS<br />Score:22","Borough:QUEENS<br />Score:21","Borough:BROOKLYN<br />Score:7","Borough:BROOKLYN<br />Score:25","Borough:MANHATTAN<br />Score:24","Borough:MANHATTAN<br />Score:12","Borough:BROOKLYN<br />Score:2","Borough:BROOKLYN<br />Score:19","Borough:STATEN ISLAND<br />Score:18","Borough:BRONX<br />Score:11","Borough:MANHATTAN<br />Score:43","Borough:BROOKLYN<br />Score:14","Borough:MANHATTAN<br />Score:7","Borough:BROOKLYN<br />Score:40","Borough:BRONX<br />Score:11","Borough:MANHATTAN<br />Score:5","Borough:BROOKLYN<br />Score:17","Borough:MANHATTAN<br />Score:56","Borough:BROOKLYN<br />Score:20","Borough:MANHATTAN<br />Score:12","Borough:QUEENS<br />Score:14","Borough:MANHATTAN<br />Score:43","Borough:MANHATTAN<br />Score:3","Borough:MANHATTAN<br />Score:25","Borough:BROOKLYN<br />Score:4","Borough:BROOKLYN<br />Score:10","Borough:MANHATTAN<br />Score:13","Borough:QUEENS<br />Score:21","Borough:QUEENS<br />Score:20","Borough:BROOKLYN<br />Score:5","Borough:BROOKLYN<br />Score:20","Borough:BROOKLYN<br />Score:4","Borough:BROOKLYN<br />Score:25","Borough:QUEENS<br />Score:21","Borough:MANHATTAN<br />Score:4","Borough:MANHATTAN<br />Score:9","Borough:QUEENS<br />Score:48","Borough:STATEN ISLAND<br />Score:8","Borough:MANHATTAN<br />Score:11","Borough:MANHATTAN<br />Score:16","Borough:QUEENS<br />Score:13","Borough:MANHATTAN<br />Score:0","Borough:QUEENS<br />Score:19","Borough:MANHATTAN<br />Score:23","Borough:MANHATTAN<br />Score:29","Borough:MANHATTAN<br />Score:68","Borough:BRONX<br />Score:12","Borough:STATEN ISLAND<br />Score:12","Borough:BRONX<br />Score:4","Borough:STATEN ISLAND<br />Score:13","Borough:QUEENS<br />Score:15","Borough:STATEN ISLAND<br />Score:2","Borough:BROOKLYN<br />Score:2","Borough:BROOKLYN<br />Score:9","Borough:MANHATTAN<br />Score:5","Borough:QUEENS<br />Score:7","Borough:BROOKLYN<br />Score:10","Borough:QUEENS<br />Score:31","Borough:QUEENS<br />Score:25","Borough:QUEENS<br />Score:32","Borough:BROOKLYN<br />Score:64","Borough:BROOKLYN<br />Score:18","Borough:QUEENS<br />Score:10","Borough:BROOKLYN<br />Score:19","Borough:BROOKLYN<br />Score:8","Borough:QUEENS<br />Score:10","Borough:BRONX<br />Score:13","Borough:QUEENS<br />Score:12","Borough:QUEENS<br />Score:17","Borough:MANHATTAN<br />Score:10","Borough:MANHATTAN<br />Score:22","Borough:QUEENS<br />Score:26","Borough:MANHATTAN<br />Score:19","Borough:QUEENS<br />Score:12","Borough:BRONX<br />Score:8","Borough:MANHATTAN<br />Score:15","Borough:MANHATTAN<br />Score:35","Borough:MANHATTAN<br />Score:15","Borough:QUEENS<br />Score:0","Borough:QUEENS<br />Score:21","Borough:MANHATTAN<br />Score:4","Borough:STATEN ISLAND<br />Score:49","Borough:QUEENS<br />Score:18","Borough:BRONX<br />Score:0","Borough:QUEENS<br />Score:16","Borough:QUEENS<br />Score:22","Borough:BROOKLYN<br />Score:12","Borough:BROOKLYN<br />Score:33","Borough:MANHATTAN<br />Score:51","Borough:QUEENS<br />Score:14","Borough:MANHATTAN<br />Score:23","Borough:BRONX<br />Score:12","Borough:BROOKLYN<br />Score:7","Borough:BROOKLYN<br />Score:10","Borough:QUEENS<br />Score:23","Borough:STATEN ISLAND<br />Score:8","Borough:BROOKLYN<br />Score:5","Borough:QUEENS<br />Score:11","Borough:BRONX<br />Score:14","Borough:BROOKLYN<br />Score:40","Borough:STATEN ISLAND<br />Score:12","Borough:BROOKLYN<br />Score:17","Borough:BROOKLYN<br />Score:12","Borough:BRONX<br />Score:35","Borough:MANHATTAN<br />Score:18","Borough:BRONX<br />Score:7","Borough:MANHATTAN<br />Score:5","Borough:BROOKLYN<br />Score:57","Borough:QUEENS<br />Score:0","Borough:STATEN ISLAND<br />Score:32","Borough:MANHATTAN<br />Score:0","Borough:BROOKLYN<br />Score:24","Borough:QUEENS<br />Score:31","Borough:BRONX<br />Score:41","Borough:QUEENS<br />Score:29","Borough:BROOKLYN<br />Score:2","Borough:QUEENS<br />Score:7","Borough:MANHATTAN<br />Score:2","Borough:MANHATTAN<br />Score:23","Borough:MANHATTAN<br />Score:13","Borough:MANHATTAN<br />Score:15","Borough:QUEENS<br />Score:20","Borough:BRONX<br />Score:2","Borough:QUEENS<br />Score:8","Borough:BRONX<br />Score:12","Borough:MANHATTAN<br />Score:10","Borough:QUEENS<br />Score:12","Borough:MANHATTAN<br />Score:11","Borough:MANHATTAN<br />Score:24","Borough:MANHATTAN<br />Score:19","Borough:BROOKLYN<br />Score:12","Borough:QUEENS<br />Score:12","Borough:BROOKLYN<br />Score:17","Borough:BROOKLYN<br />Score:11","Borough:BRONX<br />Score:39","Borough:QUEENS<br />Score:21","Borough:MANHATTAN<br />Score:26","Borough:QUEENS<br />Score:25","Borough:BROOKLYN<br />Score:10","Borough:QUEENS<br />Score:13","Borough:MANHATTAN<br />Score:14","Borough:MANHATTAN<br />Score:9","Borough:MANHATTAN<br />Score:12","Borough:BRONX<br />Score:28","Borough:BROOKLYN<br />Score:36","Borough:MANHATTAN<br />Score:31","Borough:MANHATTAN<br />Score:29","Borough:BRONX<br />Score:11","Borough:QUEENS<br />Score:2","Borough:MANHATTAN<br />Score:10","Borough:MANHATTAN<br />Score:23","Borough:BROOKLYN<br />Score:22","Borough:BROOKLYN<br />Score:17","Borough:BROOKLYN<br />Score:10","Borough:BROOKLYN<br />Score:17","Borough:BROOKLYN<br />Score:31","Borough:MANHATTAN<br />Score:17","Borough:MANHATTAN<br />Score:12","Borough:BROOKLYN<br />Score:9","Borough:MANHATTAN<br />Score:26","Borough:MANHATTAN<br />Score:2","Borough:BRONX<br />Score:15","Borough:MANHATTAN<br />Score:19","Borough:QUEENS<br />Score:13","Borough:BROOKLYN<br />Score:20","Borough:QUEENS<br />Score:7","Borough:BROOKLYN<br />Score:12","Borough:BROOKLYN<br />Score:14","Borough:MANHATTAN<br />Score:16","Borough:BROOKLYN<br />Score:12","Borough:MANHATTAN<br />Score:33","Borough:BRONX<br />Score:2","Borough:BROOKLYN<br />Score:9","Borough:MANHATTAN<br />Score:13","Borough:BROOKLYN<br />Score:25","Borough:MANHATTAN<br />Score:35","Borough:BROOKLYN<br />Score:18","Borough:BROOKLYN<br />Score:20","Borough:MANHATTAN<br />Score:17","Borough:BROOKLYN<br />Score:35","Borough:QUEENS<br />Score:31","Borough:BROOKLYN<br />Score:19","Borough:QUEENS<br />Score:14","Borough:BRONX<br />Score:7","Borough:QUEENS<br />Score:9","Borough:MANHATTAN<br />Score:14","Borough:MANHATTAN<br />Score:12","Borough:MANHATTAN<br />Score:17","Borough:BRONX<br />Score:12","Borough:BRONX<br />Score:7","Borough:MANHATTAN<br />Score:25","Borough:BRONX<br />Score:40","Borough:QUEENS<br />Score:38","Borough:QUEENS<br />Score:7","Borough:QUEENS<br />Score:9","Borough:BROOKLYN<br />Score:2","Borough:MANHATTAN<br />Score:5","Borough:MANHATTAN<br />Score:19","Borough:QUEENS<br />Score:6","Borough:MANHATTAN<br />Score:33","Borough:STATEN ISLAND<br />Score:29","Borough:MANHATTAN<br />Score:29","Borough:QUEENS<br />Score:33","Borough:MANHATTAN<br />Score:33","Borough:MANHATTAN<br />Score:15","Borough:BRONX<br />Score:12","Borough:MANHATTAN<br />Score:12","Borough:QUEENS<br />Score:14","Borough:BRONX<br />Score:13","Borough:QUEENS<br />Score:21","Borough:QUEENS<br />Score:24","Borough:BROOKLYN<br />Score:19","Borough:MANHATTAN<br />Score:9","Borough:QUEENS<br />Score:9","Borough:BROOKLYN<br />Score:19","Borough:STATEN ISLAND<br />Score:11","Borough:QUEENS<br />Score:55","Borough:STATEN ISLAND<br />Score:11","Borough:MANHATTAN<br />Score:27","Borough:QUEENS<br />Score:12","Borough:MANHATTAN<br />Score:24","Borough:BROOKLYN<br />Score:30","Borough:BRONX<br />Score:11","Borough:MANHATTAN<br />Score:10","Borough:QUEENS<br />Score:10","Borough:BROOKLYN<br />Score:7","Borough:BROOKLYN<br />Score:10","Borough:MANHATTAN<br />Score:12","Borough:MANHATTAN<br />Score:8","Borough:BROOKLYN<br />Score:15","Borough:MANHATTAN<br />Score:11","Borough:STATEN ISLAND<br />Score:7","Borough:BROOKLYN<br />Score:32","Borough:BROOKLYN<br />Score:5","Borough:BRONX<br />Score:11","Borough:BROOKLYN<br />Score:18","Borough:MANHATTAN<br />Score:33","Borough:QUEENS<br />Score:19","Borough:STATEN ISLAND<br />Score:10","Borough:QUEENS<br />Score:3","Borough:BROOKLYN<br />Score:35","Borough:QUEENS<br />Score:12","Borough:MANHATTAN<br />Score:24","Borough:QUEENS<br />Score:57","Borough:QUEENS<br />Score:87","Borough:BRONX<br />Score:10","Borough:QUEENS<br />Score:12","Borough:BROOKLYN<br />Score:10","Borough:MANHATTAN<br />Score:2","Borough:STATEN ISLAND<br />Score:13","Borough:MANHATTAN<br />Score:33","Borough:BROOKLYN<br />Score:12","Borough:MANHATTAN<br />Score:21","Borough:MANHATTAN<br />Score:55","Borough:QUEENS<br />Score:10","Borough:BRONX<br />Score:6","Borough:QUEENS<br />Score:17","Borough:MANHATTAN<br />Score:12","Borough:MANHATTAN<br />Score:22","Borough:QUEENS<br />Score:5","Borough:BRONX<br />Score:10","Borough:BROOKLYN<br />Score:8","Borough:MANHATTAN<br />Score:25","Borough:MANHATTAN<br />Score:31","Borough:QUEENS<br />Score:29","Borough:STATEN ISLAND<br />Score:31","Borough:BRONX<br />Score:13","Borough:MANHATTAN<br />Score:9","Borough:QUEENS<br />Score:13","Borough:MANHATTAN<br />Score:10","Borough:QUEENS<br />Score:4","Borough:MANHATTAN<br />Score:10","Borough:BROOKLYN<br />Score:37","Borough:MANHATTAN<br />Score:23","Borough:MANHATTAN<br />Score:7","Borough:MANHATTAN<br />Score:22","Borough:QUEENS<br />Score:2","Borough:STATEN ISLAND<br />Score:11","Borough:MANHATTAN<br />Score:4","Borough:QUEENS<br />Score:20","Borough:BROOKLYN<br />Score:14","Borough:MANHATTAN<br />Score:21","Borough:MANHATTAN<br />Score:13","Borough:BROOKLYN<br />Score:12","Borough:QUEENS<br />Score:10","Borough:BRONX<br />Score:7","Borough:BROOKLYN<br />Score:10","Borough:BROOKLYN<br />Score:30","Borough:MANHATTAN<br />Score:39","Borough:BROOKLYN<br />Score:4","Borough:STATEN ISLAND<br />Score:25","Borough:BROOKLYN<br />Score:18","Borough:BRONX<br />Score:16","Borough:MANHATTAN<br />Score:11","Borough:QUEENS<br />Score:11","Borough:BROOKLYN<br />Score:11","Borough:BROOKLYN<br />Score:11","Borough:QUEENS<br />Score:5","Borough:BROOKLYN<br />Score:4","Borough:MANHATTAN<br />Score:14","Borough:MANHATTAN<br />Score:30","Borough:BRONX<br />Score:4","Borough:QUEENS<br />Score:12","Borough:MANHATTAN<br />Score:19","Borough:QUEENS<br />Score:33","Borough:BRONX<br />Score:5","Borough:MANHATTAN<br />Score:9","Borough:MANHATTAN<br />Score:10","Borough:BROOKLYN<br />Score:19","Borough:MANHATTAN<br />Score:0","Borough:MANHATTAN<br />Score:7","Borough:MANHATTAN<br />Score:10","Borough:BRONX<br />Score:11","Borough:BROOKLYN<br />Score:29","Borough:BROOKLYN<br />Score:18","Borough:BROOKLYN<br />Score:0","Borough:BROOKLYN<br />Score:16","Borough:BROOKLYN<br />Score:14","Borough:QUEENS<br />Score:9","Borough:MANHATTAN<br />Score:19","Borough:MANHATTAN<br />Score:5","Borough:BRONX<br />Score:43","Borough:BROOKLYN<br />Score:19","Borough:MANHATTAN<br />Score:10","Borough:MANHATTAN<br />Score:3","Borough:BROOKLYN<br />Score:34","Borough:BROOKLYN<br />Score:16","Borough:BROOKLYN<br />Score:23","Borough:BRONX<br />Score:6","Borough:BROOKLYN<br />Score:5","Borough:QUEENS<br />Score:14","Borough:MANHATTAN<br />Score:13","Borough:STATEN ISLAND<br />Score:13","Borough:QUEENS<br />Score:4","Borough:BROOKLYN<br />Score:10","Borough:MANHATTAN<br />Score:4","Borough:BROOKLYN<br />Score:24","Borough:MANHATTAN<br />Score:13","Borough:BROOKLYN<br />Score:12","Borough:QUEENS<br />Score:30","Borough:BRONX<br />Score:5","Borough:MANHATTAN<br />Score:10","Borough:BRONX<br />Score:25","Borough:BRONX<br />Score:20","Borough:BROOKLYN<br />Score:22","Borough:MANHATTAN<br />Score:28","Borough:QUEENS<br />Score:40","Borough:QUEENS<br />Score:26","Borough:BROOKLYN<br />Score:39","Borough:BRONX<br />Score:19","Borough:MANHATTAN<br />Score:43","Borough:QUEENS<br />Score:35","Borough:QUEENS<br />Score:11","Borough:QUEENS<br />Score:120","Borough:BROOKLYN<br />Score:6","Borough:MANHATTAN<br />Score:4","Borough:BROOKLYN<br />Score:18","Borough:BRONX<br />Score:40","Borough:QUEENS<br />Score:25","Borough:QUEENS<br />Score:9","Borough:MANHATTAN<br />Score:34","Borough:MANHATTAN<br />Score:0","Borough:MANHATTAN<br />Score:22","Borough:MANHATTAN<br />Score:4","Borough:QUEENS<br />Score:20","Borough:MANHATTAN<br />Score:11","Borough:QUEENS<br />Score:7","Borough:MANHATTAN<br />Score:15","Borough:BROOKLYN<br />Score:3","Borough:BROOKLYN<br />Score:7","Borough:QUEENS<br />Score:7","Borough:MANHATTAN<br />Score:27","Borough:QUEENS<br />Score:28","Borough:BRONX<br />Score:18","Borough:BRONX<br />Score:21","Borough:MANHATTAN<br />Score:2","Borough:MANHATTAN<br />Score:7","Borough:BROOKLYN<br />Score:28","Borough:MANHATTAN<br />Score:0","Borough:MANHATTAN<br />Score:30","Borough:BRONX<br />Score:5","Borough:MANHATTAN<br />Score:7","Borough:QUEENS<br />Score:10","Borough:BROOKLYN<br />Score:5","Borough:BROOKLYN<br />Score:7","Borough:MANHATTAN<br />Score:12","Borough:MANHATTAN<br />Score:31","Borough:MANHATTAN<br />Score:18","Borough:QUEENS<br />Score:10","Borough:BROOKLYN<br />Score:12","Borough:QUEENS<br />Score:16","Borough:QUEENS<br />Score:33","Borough:QUEENS<br />Score:0","Borough:MANHATTAN<br />Score:9","Borough:MANHATTAN<br />Score:11","Borough:BROOKLYN<br />Score:2","Borough:MANHATTAN<br />Score:42","Borough:BRONX<br />Score:17","Borough:QUEENS<br />Score:9","Borough:QUEENS<br />Score:18","Borough:QUEENS<br />Score:5","Borough:QUEENS<br />Score:14","Borough:QUEENS<br />Score:13","Borough:BRONX<br />Score:10","Borough:BROOKLYN<br />Score:42","Borough:BRONX<br />Score:12","Borough:QUEENS<br />Score:22","Borough:BRONX<br />Score:47","Borough:QUEENS<br />Score:5","Borough:QUEENS<br />Score:16","Borough:QUEENS<br />Score:24","Borough:MANHATTAN<br />Score:48","Borough:QUEENS<br />Score:8","Borough:MANHATTAN<br />Score:32","Borough:STATEN ISLAND<br />Score:5","Borough:QUEENS<br />Score:16","Borough:BROOKLYN<br />Score:32","Borough:BROOKLYN<br />Score:22","Borough:BROOKLYN<br />Score:12","Borough:BROOKLYN<br />Score:7","Borough:BROOKLYN<br />Score:11","Borough:MANHATTAN<br />Score:22","Borough:MANHATTAN<br />Score:17","Borough:MANHATTAN<br />Score:38","Borough:BRONX<br />Score:51","Borough:BROOKLYN<br />Score:9","Borough:QUEENS<br />Score:12","Borough:BRONX<br />Score:11","Borough:MANHATTAN<br />Score:21","Borough:MANHATTAN<br />Score:6","Borough:MANHATTAN<br />Score:18","Borough:BROOKLYN<br />Score:11","Borough:QUEENS<br />Score:40","Borough:MANHATTAN<br />Score:46","Borough:BROOKLYN<br />Score:9","Borough:MANHATTAN<br />Score:9","Borough:QUEENS<br />Score:19","Borough:BROOKLYN<br />Score:13","Borough:QUEENS<br />Score:55","Borough:MANHATTAN<br />Score:62","Borough:STATEN ISLAND<br />Score:2","Borough:MANHATTAN<br />Score:17","Borough:MANHATTAN<br />Score:12","Borough:BRONX<br />Score:7","Borough:QUEENS<br />Score:10","Borough:QUEENS<br />Score:5","Borough:QUEENS<br />Score:6","Borough:BROOKLYN<br />Score:14","Borough:BROOKLYN<br />Score:13","Borough:BRONX<br />Score:10","Borough:MANHATTAN<br />Score:57","Borough:MANHATTAN<br />Score:25","Borough:QUEENS<br />Score:7","Borough:BROOKLYN<br />Score:22","Borough:QUEENS<br />Score:22","Borough:BROOKLYN<br />Score:10","Borough:BROOKLYN<br />Score:21","Borough:STATEN ISLAND<br />Score:30","Borough:MANHATTAN<br />Score:4","Borough:BROOKLYN<br />Score:36","Borough:MANHATTAN<br />Score:23","Borough:MANHATTAN<br />Score:16","Borough:BROOKLYN<br />Score:4","Borough:STATEN ISLAND<br />Score:3","Borough:BROOKLYN<br />Score:22","Borough:MANHATTAN<br />Score:13","Borough:MANHATTAN<br />Score:20","Borough:BROOKLYN<br />Score:4","Borough:QUEENS<br />Score:30","Borough:MANHATTAN<br />Score:11","Borough:BROOKLYN<br />Score:3","Borough:BRONX<br />Score:2","Borough:BROOKLYN<br />Score:15","Borough:BRONX<br />Score:13","Borough:MANHATTAN<br />Score:44","Borough:BROOKLYN<br />Score:11","Borough:BROOKLYN<br />Score:32","Borough:MANHATTAN<br />Score:19","Borough:QUEENS<br />Score:7","Borough:MANHATTAN<br />Score:31","Borough:QUEENS<br />Score:12","Borough:BROOKLYN<br />Score:5","Borough:MANHATTAN<br />Score:45","Borough:MANHATTAN<br />Score:7","Borough:MANHATTAN<br />Score:-1","Borough:BRONX<br />Score:18","Borough:BROOKLYN<br />Score:2","Borough:MANHATTAN<br />Score:22","Borough:MANHATTAN<br />Score:3","Borough:QUEENS<br />Score:2","Borough:STATEN ISLAND<br />Score:35","Borough:BROOKLYN<br />Score:10","Borough:QUEENS<br />Score:24","Borough:BRONX<br />Score:35","Borough:BROOKLYN<br />Score:4","Borough:MANHATTAN<br />Score:47","Borough:BRONX<br />Score:9","Borough:MANHATTAN<br />Score:111","Borough:QUEENS<br />Score:20","Borough:QUEENS<br />Score:9","Borough:MANHATTAN<br />Score:27","Borough:BRONX<br />Score:26","Borough:MANHATTAN<br />Score:47","Borough:STATEN ISLAND<br />Score:16","Borough:BROOKLYN<br />Score:22","Borough:QUEENS<br />Score:9","Borough:QUEENS<br />Score:24","Borough:MANHATTAN<br />Score:7","Borough:QUEENS<br />Score:21","Borough:BRONX<br />Score:7","Borough:MANHATTAN<br />Score:17","Borough:QUEENS<br />Score:4","Borough:QUEENS<br />Score:7","Borough:QUEENS<br />Score:9","Borough:MANHATTAN<br />Score:9","Borough:QUEENS<br />Score:22","Borough:BROOKLYN<br />Score:10","Borough:BROOKLYN<br />Score:9","Borough:MANHATTAN<br />Score:15","Borough:QUEENS<br />Score:2","Borough:BROOKLYN<br />Score:11","Borough:BROOKLYN<br />Score:7","Borough:BROOKLYN<br />Score:52","Borough:QUEENS<br />Score:2","Borough:BROOKLYN<br />Score:42","Borough:BROOKLYN<br />Score:21","Borough:MANHATTAN<br />Score:15","Borough:MANHATTAN<br />Score:22","Borough:STATEN ISLAND<br />Score:33","Borough:BROOKLYN<br />Score:11","Borough:MANHATTAN<br />Score:32","Borough:BROOKLYN<br />Score:12","Borough:QUEENS<br />Score:34","Borough:MANHATTAN<br />Score:18","Borough:BROOKLYN<br />Score:26","Borough:BROOKLYN<br />Score:10","Borough:BROOKLYN<br />Score:31","Borough:MANHATTAN<br />Score:24","Borough:QUEENS<br />Score:20","Borough:MANHATTAN<br />Score:19","Borough:BROOKLYN<br />Score:10","Borough:BROOKLYN<br />Score:14","Borough:STATEN ISLAND<br />Score:2","Borough:MANHATTAN<br />Score:8","Borough:QUEENS<br />Score:5","Borough:BROOKLYN<br />Score:18","Borough:BRONX<br />Score:9","Borough:QUEENS<br />Score:5","Borough:MANHATTAN<br />Score:8","Borough:QUEENS<br />Score:8","Borough:MANHATTAN<br />Score:22","Borough:BRONX<br />Score:4","Borough:BROOKLYN<br />Score:4","Borough:MANHATTAN<br />Score:20","Borough:QUEENS<br />Score:6","Borough:MANHATTAN<br />Score:29","Borough:STATEN ISLAND<br />Score:21","Borough:QUEENS<br />Score:20","Borough:BROOKLYN<br />Score:11","Borough:BROOKLYN<br />Score:10","Borough:MANHATTAN<br />Score:21","Borough:MANHATTAN<br />Score:37","Borough:STATEN ISLAND<br />Score:2","Borough:MANHATTAN<br />Score:33","Borough:BROOKLYN<br />Score:4","Borough:BROOKLYN<br />Score:12","Borough:QUEENS<br />Score:9","Borough:QUEENS<br />Score:13","Borough:MANHATTAN<br />Score:16","Borough:QUEENS<br />Score:20","Borough:BRONX<br />Score:2","Borough:BROOKLYN<br />Score:25","Borough:MANHATTAN<br />Score:31","Borough:BROOKLYN<br />Score:20","Borough:MANHATTAN<br />Score:14","Borough:QUEENS<br />Score:10","Borough:BROOKLYN<br />Score:13","Borough:QUEENS<br />Score:21","Borough:MANHATTAN<br />Score:22","Borough:MANHATTAN<br />Score:4","Borough:QUEENS<br />Score:37","Borough:MANHATTAN<br />Score:10","Borough:MANHATTAN<br />Score:7","Borough:BROOKLYN<br />Score:19","Borough:QUEENS<br />Score:10","Borough:QUEENS<br />Score:8","Borough:QUEENS<br />Score:15","Borough:BRONX<br />Score:2","Borough:MANHATTAN<br />Score:4","Borough:BROOKLYN<br />Score:9","Borough:BROOKLYN<br />Score:18","Borough:BRONX<br />Score:0","Borough:MANHATTAN<br />Score:25","Borough:BROOKLYN<br />Score:6","Borough:QUEENS<br />Score:10","Borough:MANHATTAN<br />Score:5","Borough:BROOKLYN<br />Score:16","Borough:BROOKLYN<br />Score:35","Borough:BROOKLYN<br />Score:26","Borough:QUEENS<br />Score:14","Borough:BROOKLYN<br />Score:13","Borough:QUEENS<br />Score:12","Borough:BROOKLYN<br />Score:14","Borough:STATEN ISLAND<br />Score:7","Borough:MANHATTAN<br />Score:5","Borough:QUEENS<br />Score:10","Borough:BRONX<br />Score:14","Borough:MANHATTAN<br />Score:13","Borough:BROOKLYN<br />Score:22","Borough:STATEN ISLAND<br />Score:18","Borough:MANHATTAN<br />Score:0","Borough:BROOKLYN<br />Score:5","Borough:STATEN ISLAND<br />Score:13","Borough:MANHATTAN<br />Score:19","Borough:MANHATTAN<br />Score:23","Borough:QUEENS<br />Score:10","Borough:MANHATTAN<br />Score:12","Borough:MANHATTAN<br />Score:17","Borough:STATEN ISLAND<br />Score:19","Borough:STATEN ISLAND<br />Score:13","Borough:BRONX<br />Score:3","Borough:QUEENS<br />Score:20","Borough:MANHATTAN<br />Score:5","Borough:QUEENS<br />Score:3","Borough:QUEENS<br />Score:7","Borough:QUEENS<br />Score:21","Borough:BROOKLYN<br />Score:12","Borough:BROOKLYN<br />Score:16","Borough:BROOKLYN<br />Score:4","Borough:QUEENS<br />Score:20","Borough:QUEENS<br />Score:43","Borough:BROOKLYN<br />Score:4","Borough:MANHATTAN<br />Score:5","Borough:QUEENS<br />Score:4","Borough:MANHATTAN<br />Score:2","Borough:QUEENS<br />Score:15","Borough:MANHATTAN<br />Score:25","Borough:BROOKLYN<br />Score:11","Borough:MANHATTAN<br />Score:35","Borough:QUEENS<br />Score:20","Borough:QUEENS<br />Score:11","Borough:BRONX<br />Score:10","Borough:MANHATTAN<br />Score:18","Borough:MANHATTAN<br />Score:24","Borough:BRONX<br />Score:14","Borough:MANHATTAN<br />Score:2","Borough:QUEENS<br />Score:14","Borough:BROOKLYN<br />Score:20","Borough:MANHATTAN<br />Score:7","Borough:BROOKLYN<br />Score:18","Borough:QUEENS<br />Score:21","Borough:QUEENS<br />Score:10","Borough:BROOKLYN<br />Score:30","Borough:MANHATTAN<br />Score:12","Borough:MANHATTAN<br />Score:13","Borough:MANHATTAN<br />Score:30","Borough:MANHATTAN<br />Score:36","Borough:STATEN ISLAND<br />Score:16","Borough:QUEENS<br />Score:3","Borough:MANHATTAN<br />Score:27","Borough:BROOKLYN<br />Score:30","Borough:QUEENS<br />Score:15","Borough:QUEENS<br />Score:3","Borough:BRONX<br />Score:4","Borough:MANHATTAN<br />Score:6","Borough:BROOKLYN<br />Score:7","Borough:QUEENS<br />Score:2","Borough:BRONX<br />Score:13","Borough:BROOKLYN<br />Score:9","Borough:STATEN ISLAND<br />Score:64","Borough:MANHATTAN<br />Score:6","Borough:BRONX<br />Score:10","Borough:MANHATTAN<br />Score:5","Borough:MANHATTAN<br />Score:16","Borough:BROOKLYN<br />Score:10","Borough:MANHATTAN<br />Score:22","Borough:MANHATTAN<br />Score:8","Borough:BRONX<br />Score:24"],"type":"scatter","marker":{"color":"rgba(31,119,180,0.5)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,0.5)"},"error_x":{"color":"rgba(31,119,180,0.5)"},"line":{"color":"rgba(31,119,180,0.5)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="column-1" class="section level2" data-width="350">
 <h2>Column</h2>
 <div id="chart-bbox-plot" class="section level3">
 <h3>Chart B—Box plot</h3>
-<pre class="r"><code>nyc_inspections_cleaned %&gt;%
-  mutate(boro = fct_reorder(boro, score)) %&gt;%
-  plot_ly(y = ~score, color = ~boro, type = &quot;box&quot;, colors = &quot;viridis&quot;)%&gt;%
-  layout(title = &quot;Boxplot of Scores by Borough&quot;,
-         xaxis = list(title = &quot;Borough&quot;),
-         yaxis = list(title = &quot;Score&quot;))</code></pre>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-a7b2f4fbc9cbdd775ad2" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-a7b2f4fbc9cbdd775ad2">{"x":{"visdat":{"1330a81729fd":["function () ","plotlyVisDat"]},"cur_data":"1330a81729fd","attrs":{"1330a81729fd":{"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"box"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Boxplot of Scores by Borough","xaxis":{"domain":[0,1],"automargin":true,"title":"Borough"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Score"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"fillcolor":"rgba(68,1,84,0.5)","y":[13,0,11,8,20,32,32,24,0,11,10,10,3,12,34,19,7,13,24,0,20,25,2,29,13,10,11,6,43,7,20,33,13,7,80,39,25,13,8,12,0,25,25,19,35,10,66,7,9,7,12,12,3,20,22,26,52,16,11,32,32,9,13,19,3,9,18,22,7,15,27,29,24,43,12,13,9,25,10,17,12,34,25,4,14,10,26,24,13,0,34,27,2,7,65,12,43,2,34,17,9,9,83,12,5,2,25,19,24,26,10,21,39,11,33,26,27,10,0,3,11,5,5,31,20,9,16,27,0,31,8,40,2,43,22,13,29,12,32,11,66,15,13,21,8,20,41,7,26,20,23,27,11,2,11,10,26,19,45,9,32,20,21,12,2,0,45,27,5,48,10,9,73,9,17,7,12,6,15,9,12,29,72,23,13,7,38,13,23,9,22,9,21,41,5,47,35,4,19,23,55,7,8,12,50,27,8,22,9,3,9,10,16,64,20,5,5,73,8,9,49,21,7,7,13,53,26,40,29,22,45,14,3,9,13,13,5,12,12,5,18,33,7,2,35,28,9,24,28,32,36,10,91,38,10,8,0,13,6,10,3,13,30,25],"type":"box","name":"Queens","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(65,68,135,0.5)","y":[14,36,50,13,5,40,48,15,12,37,29,9,2,43,29,30,5,12,52,17,11,25,37,5,12,12,22,2,41,27,2,24,7,65,17,5,2,26,19,40,58,6,26,12,7,44,19,48,12,11,0,33,10,2,13,34,23,10,25,19,9,13,19,13,17,28,54,7,2,26,2,12,0,24,11,2,7,7,31,34,36,8,36,29,18,45,12,20,47,17,34,2,66,38,10,69,7,8,4,7,13,35,3,12,31,33,41,13,12,63,62,32,13,17,5,40,51,25,7,18,13,11,4,10,18,10,13,25,14,27,41,13,24,56,56,10,21,29,24,22,10,18,26,23,19,10,66,9,24,40,8,9,77,64,20,0,11,5,4,22,18,5,29,20,0,54,7,13,44,9,30,9,2,21,39,10,7,20,12,31,21,35,5,7,8,19,10,2,10,7,13,12,13,39,11,2,31,5,35,20,7,83,10,27,7,2,45,23,22,7,20,43,28,23,38,13,26,5,13,12,66,29,17,2,8,7,10,5,21,26,17,10,11,28,10,13,0,10,16,0,13,45,22,8,11,25,12,4,7,5,8,13,13],"type":"box","name":"Brooklyn","marker":{"color":"rgba(65,68,135,1)","line":{"color":"rgba(65,68,135,1)"}},"line":{"color":"rgba(65,68,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(42,120,142,0.5)","y":[13,17,24,13,12,33,12,18,11,13,12,18,9,17,42,0,22,19,18,73,25,22,58,11,22,20,21,9,11,10,21,2,2,31,3,9,7,24,20,24,22,9,14,11,9,13,12,14,3,28,10],"type":"box","name":"Staten Island","marker":{"color":"rgba(42,120,142,1)","line":{"color":"rgba(42,120,142,1)"}},"line":{"color":"rgba(42,120,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(34,168,132,0.5)","y":[10,9,9,3,9,38,5,42,102,24,5,26,33,11,21,9,52,10,0,79,8,14,37,42,5,26,18,18,0,47,7,46,27,7,30,2,23,28,27,15,30,10,4,14,12,8,2,20,22,23,42,22,6,5,25,11,17,10,12,7,3,64,3,33,10,10,3,38,40,24,8,6,9,35,13,82,40,7,9,39,15,12,0,13,5,20,37,33,18,12,16,14,5,17,15,7,31,64,7,36,52,18,21,22,39,13,12,25,24,5,2,12,34,5,3,19,49,11,18,2,9,24,27,12,17,4,23,44,32,26,23,59,42,10,7,9,5,10,66,0,5,12,32,21,25,25,21,13,13,69,17,70,18,9,18,11,23,39,13,12,35,28,0,24,22,32,14,26,26,2,25,56,24,33,5,31,24,12,9,5,26,41,7,12,13,45,20,43,21,11,31,32,17,47,0,33,7,26,5,7,2,14,8,24,34,54,47,13,25,7,7,11,42,48,7,5,56,4,47,10,18,19,25,5,12,5,11,26,0,32,28,9,12,25,13,19,7,50,27,20,39,24,11,18,7,22,11,8,25,39,13,23,43,9,0,6,24,40,28,8,56,13,43,18,14,3,11,8,74,9,4,47,5,19,3,20,47,12,13,10,11,19,6,16,4,10,2,31,3,30,7,6,4,79,14,3,2,5,12,28,9,13,19,15,22,9,13,5,13,3,31,10,21,13,49,10,12,23,4,5,13,15,4,22,11,5,11,12,31,7,17,67],"type":"box","name":"Manhattan","marker":{"color":"rgba(34,168,132,1)","line":{"color":"rgba(34,168,132,1)"}},"line":{"color":"rgba(34,168,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(122,209,81,0.5)","y":[13,33,30,31,5,6,17,24,10,40,7,99,3,24,17,9,17,7,9,20,12,18,11,11,18,9,11,10,23,5,20,34,6,7,26,16,32,0,0,21,19,21,10,5,11,30,12,106,8,33,16,23,11,29,53,24,23,9,5,10,32,19,37,67,10,7,25,8,19,56,22,48,9,7,30,0,5,12,9,21,50,19,11,48,19,29,10,13,9,18,10,21,14,28,17,19,7,44,7,22],"type":"box","name":"Bronx","marker":{"color":"rgba(122,209,81,1)","line":{"color":"rgba(122,209,81,1)"}},"line":{"color":"rgba(122,209,81,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<p>From this box plot, we can clearly observe the distribution of scores
-by borough. Staten Island generally has lower and more consistent
-scores, suggesting better compliance, while Manhattan have both higher
-median scores and more outliers, indicating more frequent or severe
-health violations.</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-9bc37fa73565ccec37a7" style="width:576px;height:460.8px;"></div>
+<script type="application/json" data-for="htmlwidget-9bc37fa73565ccec37a7">{"x":{"visdat":{"1671c3ae6b961":["function () ","plotlyVisDat"]},"cur_data":"1671c3ae6b961","attrs":{"1671c3ae6b961":{"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"box"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Boxplot of Scores by Borough","xaxis":{"domain":[0,1],"automargin":true,"title":"Borough"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Score"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"fillcolor":"rgba(68,1,84,0.5)","y":[14,12,3,29,45,41,6,13,3,14,7,0,9,21,27,50,20,20,17,3,7,0,25,7,12,10,30,17,11,12,17,18,66,10,22,8,14,23,24,3,7,16,33,11,11,12,4,13,8,0,12,14,35,7,41,2,12,39,28,11,15,2,7,12,7,40,12,13,11,11,10,6,10,13,7,16,4,5,11,43,6,5,25,20,19,40,18,21,5,17,10,12,47,51,11,7,10,2,13,18,35,9,26,7,9,4,2,2,0,14,3,10,14,4,13,10,24],"type":"box","name":"BRONX","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(65,68,135,0.5)","y":[3,47,8,13,35,9,7,2,10,21,11,65,12,9,15,8,9,8,13,7,54,11,21,12,2,2,5,4,2,11,9,33,2,31,13,6,15,58,18,17,17,3,13,2,38,15,13,0,12,22,11,3,35,7,2,11,19,11,4,5,8,9,0,26,11,16,7,24,31,5,20,3,5,7,25,2,19,14,40,17,20,4,10,5,20,4,25,2,9,10,64,18,19,8,12,33,7,10,5,40,17,12,57,24,2,12,17,11,10,36,22,17,10,17,31,9,20,12,14,12,9,25,18,20,35,19,2,19,19,30,7,10,15,32,5,18,35,10,12,8,37,14,12,10,30,4,18,11,11,4,19,29,18,0,16,14,19,34,16,23,5,10,24,12,22,39,6,18,3,7,28,5,7,12,2,42,32,22,12,7,11,9,11,9,13,14,13,22,10,21,36,4,22,4,3,15,11,32,5,2,10,4,22,10,9,11,7,52,42,21,11,12,26,10,31,10,14,18,4,11,10,4,12,25,20,13,19,9,18,6,16,35,26,13,14,22,5,12,16,4,4,11,20,18,30,30,7,9,10],"type":"box","name":"BROOKLYN","marker":{"color":"rgba(65,68,135,1)","line":{"color":"rgba(65,68,135,1)"}},"line":{"color":"rgba(65,68,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(42,120,142,0.5)","y":[2,3,18,18,17,10,11,37,28,4,38,13,2,46,11,28,36,5,2,19,12,11,11,6,4,13,20,9,18,24,19,13,11,10,12,26,12,29,19,12,17,11,23,12,12,30,38,16,20,7,18,0,4,19,12,5,3,17,61,10,22,2,17,3,17,10,35,14,13,21,12,19,11,18,15,15,20,10,22,21,14,21,20,21,48,13,19,15,7,31,25,32,10,10,12,17,26,12,0,21,18,16,22,14,23,11,0,31,29,7,20,8,12,12,21,25,13,2,13,7,31,14,9,38,7,9,6,33,14,21,24,9,55,12,10,19,3,12,57,87,12,10,17,5,29,13,4,2,20,10,11,5,12,33,9,14,4,30,40,26,35,11,120,25,9,20,7,7,28,10,10,16,33,0,9,18,5,14,13,22,5,16,24,8,16,12,40,19,55,10,5,6,7,22,30,7,12,2,24,20,9,9,24,21,4,7,9,22,2,2,34,20,5,5,8,6,20,9,13,20,10,21,37,10,8,15,10,14,12,10,10,20,3,7,21,20,43,4,15,20,11,14,21,10,3,15,3,2],"type":"box","name":"QUEENS","marker":{"color":"rgba(42,120,142,1)","line":{"color":"rgba(42,120,142,1)"}},"line":{"color":"rgba(42,120,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(34,168,132,0.5)","y":[7,3,8,31,9,15,15,39,19,10,9,17,10,28,18,8,12,13,2,49,8,12,32,29,11,11,7,10,13,31,11,25,13,5,2,30,3,35,16,33,2,21,2,7,18,13,19,13,16,64],"type":"box","name":"STATEN ISLAND","marker":{"color":"rgba(34,168,132,1)","line":{"color":"rgba(34,168,132,1)"}},"line":{"color":"rgba(34,168,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(122,209,81,0.5)","y":[7,9,17,4,23,5,28,4,5,5,7,22,25,19,10,16,8,24,37,17,21,6,32,19,18,116,11,54,49,20,5,12,57,32,35,14,8,16,23,25,8,12,30,12,45,15,7,40,12,13,38,5,4,25,25,9,10,76,14,11,37,6,41,9,16,11,24,10,12,9,0,26,6,9,2,13,15,45,19,37,30,2,6,14,16,9,5,5,0,30,16,9,10,10,40,12,4,8,9,29,3,18,2,36,2,0,8,53,15,26,4,36,8,27,24,12,43,7,5,56,12,43,3,25,13,4,9,11,16,0,23,29,68,5,10,22,19,15,35,15,4,51,23,18,5,0,2,23,13,15,10,11,24,19,26,14,9,12,31,29,10,23,17,12,26,2,19,16,33,13,35,17,14,12,17,25,5,19,33,29,33,15,12,9,27,24,10,12,8,11,33,24,2,33,21,55,12,22,25,31,9,10,10,23,7,22,4,21,13,39,11,14,30,19,9,10,0,7,10,19,5,10,3,13,4,13,10,28,43,4,34,0,22,4,11,15,27,2,7,0,30,7,12,31,18,9,11,42,48,32,22,17,38,21,6,18,46,9,62,17,12,57,25,4,23,16,13,20,11,44,19,31,45,7,-1,22,3,47,111,27,47,7,17,9,15,15,22,32,18,24,19,8,8,22,20,29,21,37,33,16,31,14,22,4,10,7,4,25,5,5,13,0,19,23,12,17,5,5,2,25,35,18,24,2,7,12,13,30,36,27,6,6,5,16,22,8],"type":"box","name":"MANHATTAN","marker":{"color":"rgba(122,209,81,1)","line":{"color":"rgba(122,209,81,1)"}},"line":{"color":"rgba(122,209,81,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="chart-c-bar-plot" class="section level3">
 <h3>Chart C— Bar plot</h3>
-<pre class="r"><code>nyc_inspections_cleaned %&gt;% 
-  count(boro) %&gt;%
-  mutate(boro = fct_reorder(boro, n)) %&gt;%
-  plot_ly(x = ~boro, y = ~n, color = ~boro, type = &quot;bar&quot;, colors = &quot;viridis&quot;)%&gt;%
-  layout(title = &quot;Count of Inspections by Borough&quot;,
-         xaxis = list(title = &quot;Borough&quot;),
-         yaxis = list(title = &quot;Inspection Count&quot;))</code></pre>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-8427e9043863b0a5baec" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-8427e9043863b0a5baec">{"x":{"visdat":{"1330a47e048e0":["function () ","plotlyVisDat"]},"cur_data":"1330a47e048e0","attrs":{"1330a47e048e0":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Count of Inspections by Borough","xaxis":{"domain":[0,1],"automargin":true,"title":"Borough","type":"category","categoryorder":"array","categoryarray":["Staten Island","Bronx","Brooklyn","Queens","Manhattan","0"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Inspection Count"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Staten Island"],"y":[51],"type":"bar","name":"Staten Island","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Bronx"],"y":[100],"type":"bar","name":"Bronx","marker":{"color":"rgba(65,68,135,1)","line":{"color":"rgba(65,68,135,1)"}},"textfont":{"color":"rgba(65,68,135,1)"},"error_y":{"color":"rgba(65,68,135,1)"},"error_x":{"color":"rgba(65,68,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Brooklyn"],"y":[253],"type":"bar","name":"Brooklyn","marker":{"color":"rgba(42,120,142,1)","line":{"color":"rgba(42,120,142,1)"}},"textfont":{"color":"rgba(42,120,142,1)"},"error_y":{"color":"rgba(42,120,142,1)"},"error_x":{"color":"rgba(42,120,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Queens"],"y":[264],"type":"bar","name":"Queens","marker":{"color":"rgba(34,168,132,1)","line":{"color":"rgba(34,168,132,1)"}},"textfont":{"color":"rgba(34,168,132,1)"},"error_y":{"color":"rgba(34,168,132,1)"},"error_x":{"color":"rgba(34,168,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Manhattan"],"y":[332],"type":"bar","name":"Manhattan","marker":{"color":"rgba(122,209,81,1)","line":{"color":"rgba(122,209,81,1)"}},"textfont":{"color":"rgba(122,209,81,1)"},"error_y":{"color":"rgba(122,209,81,1)"},"error_x":{"color":"rgba(122,209,81,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<p>From this bar plot, we found that Manhattan has the highest count of
-inspections followed by Brooklyn, which indicates a higher density of
-restaurants or more frequent inspections in these boroughs. Staten
-Island has the lowest inspection count, which reflects fewer restaurants
-in the area or a lower frequency of inspections. This distribution
-reflects differing inspection needs or resource allocations across
-boroughs.</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-51de77da79031c606cb5" style="width:576px;height:460.8px;"></div>
+<script type="application/json" data-for="htmlwidget-51de77da79031c606cb5">{"x":{"visdat":{"1671c4809ea5a":["function () ","plotlyVisDat"]},"cur_data":"1671c4809ea5a","attrs":{"1671c4809ea5a":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Count of Inspections by Borough","xaxis":{"domain":[0,1],"automargin":true,"title":"Borough","type":"category","categoryorder":"array","categoryarray":["STATEN ISLAND","BRONX","QUEENS","BROOKLYN","MANHATTAN","Missing"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Inspection Count"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["STATEN ISLAND"],"y":[50],"type":"bar","name":"STATEN ISLAND","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["BRONX"],"y":[117],"type":"bar","name":"BRONX","marker":{"color":"rgba(65,68,135,1)","line":{"color":"rgba(65,68,135,1)"}},"textfont":{"color":"rgba(65,68,135,1)"},"error_y":{"color":"rgba(65,68,135,1)"},"error_x":{"color":"rgba(65,68,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["QUEENS"],"y":[248],"type":"bar","name":"QUEENS","marker":{"color":"rgba(42,120,142,1)","line":{"color":"rgba(42,120,142,1)"}},"textfont":{"color":"rgba(42,120,142,1)"},"error_y":{"color":"rgba(42,120,142,1)"},"error_x":{"color":"rgba(42,120,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["BROOKLYN"],"y":[249],"type":"bar","name":"BROOKLYN","marker":{"color":"rgba(34,168,132,1)","line":{"color":"rgba(34,168,132,1)"}},"textfont":{"color":"rgba(34,168,132,1)"},"error_y":{"color":"rgba(34,168,132,1)"},"error_x":{"color":"rgba(34,168,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["MANHATTAN"],"y":[336],"type":"bar","name":"MANHATTAN","marker":{"color":"rgba(122,209,81,1)","line":{"color":"rgba(122,209,81,1)"}},"textfont":{"color":"rgba(122,209,81,1)"},"error_y":{"color":"rgba(122,209,81,1)"},"error_x":{"color":"rgba(122,209,81,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-
-
-
 
 </div>
 
 <script>
+$(document).ready(function() {
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed table-sm');
 
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
 });
-
-
 </script>
 
-<!-- tabsets -->
-
-<script>
+<script type="text/javascript">
 $(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+  FlexDashboard.init({
+    fillPage: true,
+    orientation: "columns",
+    storyboard: false,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460,
+    resize_reload: true
+  });
+  var navbar = $(".navbar").first();
+  var body = $("body").first();
+  var sidebar = $(".section.sidebar").first();
+  function addNavbarPadding() {
+    var navHeight = navbar.outerHeight();
+    body.css("padding-top", (navHeight + 8) + "px");
+    sidebar.css("top", navHeight + "px");
+    var resizeEvent = window.document.createEvent("UIEvents");
+    resizeEvent.initUIEvent("resize", true, false, window, 0);
+    window.dispatchEvent(resizeEvent);
+  }
+  if (!window.Shiny) setTimeout(addNavbarPadding, 100);
+  $(document).on("shiny:idle", function() {
+    setTimeout(addNavbarPadding, 50);
   });
 });
-</script>
-
-<!-- code folding -->
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
 </script>
 
 </body>

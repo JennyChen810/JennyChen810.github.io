@@ -13,52 +13,11 @@ library(p8105.datasets)
 library(plotly)
 ```
 
-Loading the dataset
+Loading the dataset and Data cleaning
 
 ```{r}
-library(httr)
-library(jsonlite)
-
-get_all_inspections = function(url) {
-  
-  all_inspections = vector("list", length = 0)
-  
-  loop_index = 1
-  chunk_size = 50000
-  DO_NEXT = TRUE
-  
-  while (DO_NEXT) {
-    message("Getting data, page ", loop_index)
-    
-    all_inspections[[loop_index]] = 
-      GET(url,
-          query = list(`$order` = "zipcode",
-                       `$limit` = chunk_size,
-                       `$offset` = as.integer((loop_index - 1) * chunk_size)
-                       )
-          ) %>%
-      content("text") %>%
-      fromJSON() %>%
-      as_tibble()
-    
-    DO_NEXT = dim(all_inspections[[loop_index]])[1] == chunk_size
-    loop_index = loop_index + 1
-  }
-  
-  all_inspections
-  
-}
-
-url = "https://data.cityofnewyork.us/resource/43nn-pn8j.json"
-
-nyc_inspections = 
-  get_all_inspections(url) %>%
-  bind_rows() 
-```
-Data cleaning
-
-```{r}
-nyc_inspections_cleaned = nyc_inspections %>%
+data("rest_inspec")
+nyc_inspections_cleaned = rest_inspec %>%
   mutate(score = as.numeric(score), 
          inspection_date = as.Date(inspection_date),
          boro = as.factor(boro)) %>%
@@ -66,10 +25,8 @@ nyc_inspections_cleaned = nyc_inspections %>%
   filter(!is.na(score) & !is.na(boro) & !is.na(inspection_date)) %>%
   distinct()%>%
   sample_n(1000)
-nyc_inspections_cleaned
 ```
 
-This cleaned dataset contains `r nrow(nyc_inspections_cleaned)` rows and `r ncol(nyc_inspections_cleaned)` columns. I take a random 1000 samples with variables includes boro, inspection_date and score.
 
 Column {data-width=650}
 -----------------------------------------------------------------------
@@ -86,7 +43,7 @@ nyc_inspections_cleaned %>%
          yaxis = list(title = "Score"))
 
 ```
-From this scatter plot, I find the positive relationship between inspection date and score. The distribution shows more intense inspection activities in the recent years of dataset. 
+
 
 Column {data-width=350}
 -----------------------------------------------------------------------
@@ -101,7 +58,7 @@ nyc_inspections_cleaned %>%
          xaxis = list(title = "Borough"),
          yaxis = list(title = "Score"))
 ```
-From this box plot, we can clearly observe the distribution of scores by borough. Staten Island generally has lower and more consistent scores, suggesting better compliance, while Manhattan have both higher median scores and more outliers, indicating more frequent or severe health violations.
+
 
 ### Chart C--- Bar plot
 
@@ -114,7 +71,7 @@ nyc_inspections_cleaned %>%
          xaxis = list(title = "Borough"),
          yaxis = list(title = "Inspection Count"))
 ```
-From this bar plot, we found that Manhattan has the highest count of inspections followed by Brooklyn, which indicates a higher density of restaurants or more frequent inspections in these boroughs. Staten Island has the lowest inspection count, which reflects fewer restaurants in the area or a lower frequency of inspections. This distribution reflects differing inspection needs or resource allocations across boroughs.
+
 
 
 
